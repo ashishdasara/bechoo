@@ -1,0 +1,20 @@
+<%= link_to advertisement_path(advertisement) do %>
+<div class="image-space">
+  <%=image_tag(advertisement.image.url(:thumb)) %>
+</div>
+<% end %>
+<div class="content-space">
+  <%= link_to advertisement_path(advertisement) do %>
+  <h3><%= advertisement.name.camelcase %></h3>
+  <% end %>
+  <p class="advert-category">
+    <%= advertisement.category.name + " >> " + advertisement.sub_category.name%>
+  </p>
+  <p class="advert-location">
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <%= advertisement.location %>
+  </p>
+  <h4>
+    ₹ <%= advertisement.price %>
+  </h4>
+</div>

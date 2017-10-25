@@ -1,0 +1,49 @@
+<%= error_messages_for(advertisement.object) %>
+<div class="form-group">
+  <%= advertisement.label :name, "Name", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.text_field :name,placeholder: "Name", class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :category_id, "Category", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.collection_select :category_id, Category.order(:name), :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :sub_category_id, "Sub-Category", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.grouped_collection_select :sub_category_id, Category.order(:name), :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :price, "Price ", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <span><%= advertisement.number_field :price, placeholder: "Price", class: "form-control" %> </span>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :name, "Location", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.text_field :location, placeholder: "location", class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :description, "Description", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.text_field :description, placeholder: "Description", class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= advertisement.label :image, "Image", class: "col-md-4 control-label" %>
+  <div class="col-md-4">
+    <%= advertisement.file_field :image %>
+  </div>
+</div>

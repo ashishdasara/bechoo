@@ -1,0 +1,21 @@
+<% @page_title = "Update Advertisement" %>
+
+<% if current_user.id == @advertisement.user_id %>
+  <div class="container form_box">
+    <div class="row">
+      <%= form_for @advertisement, html: {class: "form-horizontal center"} do |advertisement| %>
+
+        <%= render 'form', advertisement: advertisement %>
+
+        <div class="form-group">
+          <div class="col-md-offset-4">
+            <%= advertisement.submit "Update", class: "btn" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% else %>
+  <% flash.now[:notice] = "you don't have permission to access this" %>
+<% end %>

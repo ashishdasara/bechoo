@@ -1,0 +1,15 @@
+<% @page_title = "New Advertisement" %>
+<div class="container form_box">
+  <div class="row">
+    <%= form_for @advertisement, html: {class: "form-horizontal center"} do |advertisement| %>
+
+    <%= render 'form', advertisement: advertisement %>
+
+    <div class="form-group">
+      <div class="col-md-offset-4">
+        <%= advertisement.submit "Create Ad", class: "btn btn-lg" %>
+      </div>
+    </div>
+  </div>
+ <% end %>
+</div>

@@ -1,0 +1,16 @@
+
+<%= link_to("Back to list", categories_path, :class => 'show-link') %>
+<div class="sub-categories new">
+  <h2>Add new sub_categories to: <%= @category.name %></h2>
+  <%= form_for(@sub_category, :url => sub_categories_path(:category_id => @category.id), :method => "post") do |f| %>
+    <table summary = "Sub-category form">
+      <tr>
+        <th>Sub-Category Name</th>
+        <td><%= f.text_field(:name) %></td>
+      </tr>
+    </table>
+    <div class="form-buttons">
+      <%= f.submit("Create Sub Category") %>
+    </div>
+  <% end %>
+</div>

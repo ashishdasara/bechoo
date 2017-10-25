@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bechoo</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <div class="container notice">
+      <% flash.each do |key, value| %>
+      <div class="notice-display flash <%= key %>"><%= value %>
+      </div><% end %>
+    </div>
+    <div class="container brand">
+      <%= link_to advertisements_path do %>
+      <h1>Bechoo.com</h1>
+      <%end%>
+    </div>
+    <%= render 'layouts/name' %>
+    <%= yield %>
+  </body>
+</html>

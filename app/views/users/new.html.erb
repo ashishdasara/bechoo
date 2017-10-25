@@ -1,0 +1,11 @@
+<% @page_title = "Signup" %>
+
+<div class="container form_box">
+ <div class="row">
+   <%= form_for @user, url:  users_path, html: {class: "form-horizontal center"}, :method => 'post' do |user| %>
+
+   <%= render 'new_form', :user => user %>
+
+   <% end %>
+ </div>
+</div>

@@ -1,0 +1,24 @@
+<% @page_title = "Show advertisement" %>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-12 col-sm-5 col-md-4 col-lg-4 image_display">
+      <%=image_tag(@advertisement.image.url(:medium)) %>
+    </div>
+    <div class="col-12 col-sm-7 col-md-8 col-lg-8 info_display">
+      <h2><strong><%= @advertisement.name.camelcase %></strong></h2>
+      <span><strong><%= @advertisement.category.name.camelcase + " >> "%></strong></span>
+      <span><strong><%= @advertisement.sub_category.name.camelcase %></strong></span>
+      <h3>
+        <span class = "glyphicon glyphicon-map-marker"></span>
+        <span><%= @advertisement.location.camelcase %></span>
+      </h3>
+      <p><%= @advertisement.description %></p>
+      <p>Add posted by: <%= @advertisement.user.first_name.camelcase %></p>
+      <h3><strong> ₹ <%= @advertisement.price %></strong></h3>
+      <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
+      <%= link_to("Chat with Seller", '#', {class: "btn btn-warning"}) %>
+    </div>
+  </div>
+</div>

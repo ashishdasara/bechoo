@@ -1,0 +1,13 @@
+<% @page_title = "Update Profile" %>
+
+<% if current_user.id == @user.id %>
+  <div class="container form_box">
+    <div class="row">
+      <%= form_for @user, html: {class: "form-horizontal center"} do |user| %>
+      <%= render 'new_form', user: user %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%= render('layouts/noaccess') %>
+<% end %>

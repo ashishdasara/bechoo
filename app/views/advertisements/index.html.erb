@@ -1,0 +1,19 @@
+<% if @advertisements.count != 0 %>
+  <div class="container">
+    <div class="row">
+
+      <% @advertisements.each do |advertisement| %>
+
+      <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
+        <div class="advert">
+          <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
+          <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
+          <%= link_to("Chat with Seller", '#', {class: "btn btn-warning"}) %>
+
+        </div>
+      </div>
+    <% end %>
+
+    </div>
+  </div>
+  <% end %>

@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *= require advertisements
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body
+{
+  background-color: #dcdcdc;
+  min-height: 700px;
+}
+.row
+{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.notice {
+  background-color: #000;
+  .notice-display
+  {
+    color: #f8f8f8;
+    margin-bottom: 0;
+  }
+}
+
+.brand{
+  h1{
+    color: black;
+    text-align: center;
+    font-family: 'Rancho';
+    font-weight: bold;
+  }
+  h1, a:hover{
+    text-decoration: none;
+  }
+}
+
+.name_box{
+  background-color: black;
+  font-family: 'Neucha';
+  h3{
+    color: #f8f8f8;
+    font-size: 20px;
+  }
+  h3:hover{
+  cursor: pointer;
+  }
+}
+.image_display {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.display_box
+{
+  padding-bottom: 20px;
+  a {
+    border: 1px solid black;
+    color: black;
+  }
+  a:hover {
+    border: 1px solid #f8f8f8;
+  }
+}
+
+.form_box
+{
+  form
+  {
+    div
+    {
+      div
+      {
+        .btn
+        {
+          background-color: #000;
+          color: #f8f8f8;
+        }
+        input
+        {
+          background-color: #f8f8f8;
+        }
+        select
+        {
+          height: 34px;
+          background-color: #f8f8f8;
+          height: 34px;
+        }
+        #advertisement_image
+        {
+          margin-top: 9px;
+          background-color: #f8f8f8;
+        }
+      }
+    }
+  }
+}

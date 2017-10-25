@@ -1,0 +1,50 @@
+// Place all the styles related to the Advertisements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container
+{
+  .row
+  {
+    .advert-columns
+    {
+      margin: 15px 0px;
+      .advert
+      {
+        border: 1px solid black;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: #f0f0f0;
+        .image-space
+        {
+          margin: 15px 15px 0px;
+          border: 1px solid #dcdcdc;
+          text-align: center;
+        }
+        .content-space
+        {
+          margin: 15px;
+          h3
+          {
+            margin: 0px;
+          }
+          p
+          {
+              margin: 0px;
+          }
+        }
+        a
+        {
+          border-radius: 0px;
+          border: 0px;
+          display: inline-block;
+          width: 100%;
+        }
+        h4
+        {
+          margin: 0px;
+        }
+      }
+    }
+  }
+}
