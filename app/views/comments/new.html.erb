@@ -1,0 +1,37 @@
+<h2 class="col-md-offset-5 col-sm-offset-5 col-xs-offset-4 form_header">New Comment</h2>
+<div class="container form_box">
+<%= form_for @comment, :html => {:class => "form-horizontal center"} do |f| %>
+  <% if @comment.errors.any? %>
+        <div id="error_explanation col-sm-offset-4" style="color: red;">
+          <h2>
+          <%= pluralize(@comment.errors.count, "error") %> prohibited
+          this comment from being saved:
+          </h2>
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :text, "text", class: "col-md-4 control-label" %>
+    <div class="col-md-4">
+      <%= f.text_field :text, placeholder: "leave a comment", class: "form-control" %>
+    </div>
+  </div>
+
+
+  <%= f.hidden_field :user_id,value: current_user.id, class: "form-control" %>
+  <%= f.hidden_field :advertisement_id,value: @advertisement.id, class: "form-control" %>
+
+  <div class="form-group">
+    <div class="col-md-offset-4">
+      <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
+      <%= link_back(comments_path(@policy_id)) %>
+      <%= link_to_dash %>
+    </div>
+  </div>
+
+<% end %>
+</div>

@@ -20,5 +20,41 @@
       <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
       <%= link_to("Chat with Seller", '#', {class: "btn btn-warning"}) %>
     </div>
+
   </div>
+  <div class="row">
+    <div class="comments-box">
+      <div class="comment-links">
+        <span>Comments</span>
+        <%= link_to("Add Comment", new_comment_path(:advertisement_id => @advertisement.id), :class => "comment_link") %>
+      </div>
+      <% if @advertisement.comments.size !=0  %>
+        <% @advertisement.comments.first(3).each do |comment|%>
+          <div class="show-comment">
+            <p class="comment-delete">
+              <% if comment.user_id == current_user.id %>
+                <%= link_to comment_path(comment), method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"} do%>
+                  <span class="glyphicon glyphicon-trash"></span>
+                <% end %>
+              <% end %>
+            </p>
+            <p><%= comment.text %></p>
+            <span><%= "-" + comment.user.name%></span>
+
+          </div>
+        <% end %>
+      <% else %>
+        <div class="show-comment">
+          <p>No comments yet</p>
+        </div>
+      <% end %>
+
+      <% if @advertisement.comments.size > 3 %>
+        <div class="comment-links">
+          <p><%= link_to("Show all comments", comments_path(:advertisement_id => @advertisement.id), :class => "comment_link") %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
 </div>

@@ -3,22 +3,24 @@ Rails.application.routes.draw do
   root 'access#login'
 
 
-  get 'access/menu'
+  get 'menu',to: 'access#menu', as: 'menu'
   get 'access/login'
   get 'access/signup'
   post 'access/attempt_login'
   get 'access/logout'
 
-  resources :categories do
-    member do
-      get :delete
+  resources :comments
+
+
+  scope '/admin' do
+    resources :sub_categories
+    resources :categories do
+      member do
+        get :delete
+      end
     end
-  end
-  resources :sub_categories do
-    member do
-      get :delete
-    end
-  end
+end
+
   resources :users do
     member do
       get :delete

@@ -10,7 +10,6 @@
   <tr>
     <td><%= sub_category.name %></td>
     <td>
-      <%= link_to("Delete sub-category", delete_sub_category_path(sub_category, :category_id => @category.id ), :class => 'action delete') %>
       <td><%= link_to( 'Delete', sub_category_path(sub_category, :category_id => @category.id), method: :delete, data: {confirm: "are you sure?"} ) %></td>
 
     </td>
