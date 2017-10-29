@@ -1,0 +1,28 @@
+<% @conversation_count = 0 %>
+<%= @conversation_count %>
+<div class="container">
+  <div class="ui segment">
+    <h3>Your Conversations</h3>
+
+    <div class="ui list">
+      <div class="item">
+        <% @conversations.each do |conversation| %>
+          <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+            <% if conversation.sender_id == current_user.id %>
+              <% recipient = User.find(conversation.recipient_id) %>
+            <% else %>
+              <% recipient = User.find(conversation.sender_id) %>
+            <% end %>
+            <div class="">
+              <%= link_to recipient.first_name.capitalize, conversation_messages_path(conversation) %>
+              <% @conversation_count +=1 %>
+            </div>
+          <% end %>
+        <% end %>
+        <% if @conversation_count == 0 %>
+          No Conversations found
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

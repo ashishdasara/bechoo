@@ -1,0 +1,55 @@
+<% if current_user.id != @messages.first.conversation.recipient_id %>
+  <% @person_id =  @messages.first.conversation.recipient_id %>
+  <% @person = User.find(@person_id) %>
+<% else %>
+  <% @person_id =  @messages.first.conversation.sender_id %>
+  <% @person = User.find(@person_id) %>
+<% end %>
+<div class="container chat">
+  <% if @over_ten %>
+    <%= link_to 'Show Previous', '?m=all' %>
+  <% end %>
+  <div class="message-body">
+    <%= "Chat with "+ @person.first_name.capitalize %>
+    <% @messages.each do |message| %>
+      <% if message.body %>
+        <% user = User.find(message.user_id) %>
+        <div class="message-display">
+          <div class="
+            <% if message.user_id == current_user.id %>
+              <%= "message-item-right" %>
+            <% else %>
+              <%= "message-item-left" %>
+            <% end %>
+            ">
+            <div class="message-header">
+              <%= message.message_time %>
+              <strong><%= user.first_name %></strong>
+            </div>
+            <div class="message-content">
+              <% if message.user_id == current_user.id %>
+                <%= message.body %>
+                <i class= "glyphicon glyphicon-chevron-left"></i>
+              <% else %>
+                <div class="item">
+                  <i class= "glyphicon glyphicon-chevron-right"></i>
+                  <%= message.body %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= form_for [@conversation, @message], html: {class: "reply-form"} do |f| %>
+    <div class="field">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+    <div>
+      <%= f.submit "Add reply", class: "ui blue labled submit icon button" %>
+    </div>
+  <% end %>
+</div>
