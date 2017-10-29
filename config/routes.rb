@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'access#login'
 
 
-  get 'menu',to: 'access#menu', as: 'menu'
+  get 'access/menu'
   get 'access/login'
   get 'access/signup'
   post 'access/attempt_login'
@@ -19,8 +19,11 @@ Rails.application.routes.draw do
         get :delete
       end
     end
-end
+  end
 
+  resources :conversations do
+    resources :messages
+  end
   resources :users do
     member do
       get :delete

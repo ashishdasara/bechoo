@@ -8,7 +8,7 @@
         <div class="advert">
           <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
           <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
-          <%= link_to("Chat with Seller", '#', {class: "btn btn-warning"}) %>
+          <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning", method: 'post' %>
 
         </div>
       </div>

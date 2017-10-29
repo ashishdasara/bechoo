@@ -109,3 +109,51 @@ body
     }
   }
 }
+.chat
+{
+  margin: 15px auto;
+  a
+  {
+    margin: 15px;
+  }
+  .message-body
+  {
+    margin: 15px;
+    .message-display
+    {
+      margin: 10px 0px;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+      .message-item-right
+      {
+        padding: 10px;
+        float: right;
+        clear: both;
+        display: block;
+        .message-content
+        {
+          float: right;
+        }
+      }
+      .message-item-left
+      {
+        padding: 10px;
+        clear: both;
+        display: block;
+        background-color: #cdcdcd;
+      }
+      .message-header
+      {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+.reply-form
+{
+  margin: 15px;
+}
