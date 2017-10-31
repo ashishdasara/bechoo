@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028022034) do
+ActiveRecord::Schema.define(version: 20171030034501) do
 
   create_table "advertisements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20171028022034) do
     t.integer "price"
     t.string "location"
     t.integer "user_id"
+    t.string "user_username"
+    t.string "user_contact_no"
     t.integer "category_id"
     t.integer "sub_category_id"
     t.boolean "approved", default: false
@@ -32,6 +34,23 @@ ActiveRecord::Schema.define(version: 20171028022034) do
     t.index ["user_id"], name: "index_advertisements_on_user_id"
   end
 
+  create_table "cart_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "cart_id"
+    t.integer "advertisement_id"
+    t.integer "quantity", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advertisement_id"], name: "index_cart_products_on_advertisement_id"
+    t.index ["cart_id"], name: "index_cart_products_on_cart_id"
+  end
+
+  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -40,7 +59,6 @@ ActiveRecord::Schema.define(version: 20171028022034) do
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "text"
-    t.boolean "approved", default: false
     t.integer "user_id"
     t.integer "advertisement_id"
     t.datetime "created_at", null: false

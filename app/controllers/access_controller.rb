@@ -10,9 +10,6 @@ class AccessController < ApplicationController
   def login
   end
 
-  def signup
-  end
-
   def attempt_login
     if params[:username].present? && params[:password].present?
       found_user = User.where(:username => params[:username]).first
@@ -24,6 +21,7 @@ class AccessController < ApplicationController
     if authorized_user
       log_in(authorized_user)
       flash[:notice] = "You are now logged in."
+      set_cart
       redirect_to(advertisements_path)
     else
       flash.now[:notice] = "Invalid username/password combination."
@@ -36,4 +34,7 @@ class AccessController < ApplicationController
     flash[:notice] = "Logged out..."
     redirect_to(access_login_path)
   end
+
+  private
+
 end

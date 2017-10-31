@@ -15,7 +15,6 @@
 //= require rails-ujs
 // require turbolinks
 //= require bootstrap-sprockets
-//= require advertisements
-//= require categories
-//= require advertisements
+//= require sub_categories
+//= require cart_products
 // require_tree.

@@ -15,10 +15,13 @@
         <span><%= @advertisement.location.camelcase %></span>
       </h3>
       <p><%= @advertisement.description %></p>
-      <p>Add posted by: <%= @advertisement.user.first_name.camelcase %></p>
+      <p>Add posted by: <%= @advertisement.user_username.camelcase %></p>
       <h3><strong> ₹ <%= @advertisement.price %></strong></h3>
-      <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
-      <%= link_to("Chat with Seller", '#', {class: "btn btn-warning"}) %>
+      <%= link_to("Add to Cart", cart_products_path(advertisement_id: @advertisement.id), class: "btn btn-success", method: 'post' ) %>
+      <% if @advertisement.user_id.present? %>
+        <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: @advertisement.user.id), class: "btn btn-warning", method: 'post' %>
+      <% end %>
+
     </div>
 
   </div>

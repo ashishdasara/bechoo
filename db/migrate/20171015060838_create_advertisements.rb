@@ -6,6 +6,8 @@ class CreateAdvertisements < ActiveRecord::Migration[5.1]
       t.integer :price
       t.string :location
       t.integer :user_id
+      t.string :user_username, uniqueness: true
+      t.string :user_contact_no
       t.integer :category_id
       t.integer :sub_category_id
       t.boolean :approved, default: false

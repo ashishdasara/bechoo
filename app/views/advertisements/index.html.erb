@@ -7,8 +7,11 @@
       <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
         <div class="advert">
           <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
-          <%= link_to("Add to Cart", "#", class: "btn btn-success" ) %>
-          <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning", method: 'post' %>
+          <% if session[:user_id] != nil %>
+
+            <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success", method: 'post' ) %>
+            <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning", method: 'post' %>
+          <% end %>
 
         </div>
       </div>

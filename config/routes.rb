@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root 'access#login'
 
 
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   post 'access/attempt_login'
   get 'access/logout'
 
-  resources :comments
+  resources :comments, :carts, :cart_products
 
 
   scope '/admin' do

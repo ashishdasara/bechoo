@@ -55,9 +55,14 @@ body
   h3{
     color: #f8f8f8;
     font-size: 20px;
+    display: inline-block;
   }
   h3:hover{
   cursor: pointer;
+  }
+  a {
+    color: #f8f8f8;
+    margin: auto 15px;
   }
 }
 .image_display {
@@ -156,4 +161,57 @@ body
 .reply-form
 {
   margin: 15px;
+}
+
+.cart
+{
+  .head
+  {
+    margin-top: 15px;
+    padding:15px;
+    border: 1px solid #f8f8f8;
+    border-radius: 5px;
+    overflow: hidden;
+    h3 {
+      margin: 0px;
+    }
+  }
+  .cart-body
+  {
+    min-height: 250px;
+    padding: 0 15px;
+    border: 1px solid #f8f8f8;
+    overflow: hidden;
+    .cart-product
+    {
+      border: 1px solid black;
+      margin: 15px 0px;
+      padding: 15px 0px;
+      overflow: hidden;
+      .image-box
+      {
+        text-align: center;
+      }
+      .content-box
+      {
+        h3
+        {
+          margin: 0;
+          display: inline-block;
+        }
+      }
+    }
+    .no-products {
+      text-align: center;
+      padding: 15px;
+    }
+    .price-label
+    {
+      float: left;
+    }
+    .price-value
+    {
+      float: right;
+    }
+  }
 }

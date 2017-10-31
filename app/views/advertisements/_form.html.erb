@@ -37,10 +37,26 @@
 <div class="form-group">
   <%= advertisement.label :description, "Description", class: "col-md-4 control-label" %>
   <div class="col-md-4">
-    <%= advertisement.text_field :description, placeholder: "Description", class: "form-control" %>
+    <%= advertisement.text_area :description, placeholder: "Description", class: "form-control" %>
   </div>
 </div>
-
+<% if user_signed_in? %>
+      <%= advertisement.hidden_field :user_username, value: @current_user.username, placeholder: "Username", class: "form-control" %>
+      <%= advertisement.hidden_field :user_contact_no, value: @current_user.contact_no, placeholder: "Contact No.", class: "form-control" %>
+<% else %>
+  <div class="form-group">
+    <%= advertisement.label :user_username, "Username", class: "col-md-4 control-label" %>
+    <div class="col-md-4">
+      <%= advertisement.text_field :user_username, placeholder: "Username", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= advertisement.label :user_contact_no, "Contact No.", class: "col-md-4 control-label" %>
+    <div class="col-md-4">
+      <%= advertisement.text_field :user_contact_no, placeholder: "Contact No.", class: "form-control" %>
+    </div>
+  </div>
+<% end %>
 <div class="form-group">
   <%= advertisement.label :image, "Image", class: "col-md-4 control-label" %>
   <div class="col-md-4">

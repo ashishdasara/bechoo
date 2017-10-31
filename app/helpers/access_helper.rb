@@ -14,6 +14,7 @@ module AccessHelper
 
   def log_out
     session.delete(:user_id)
+    session.delete(:cart_id)
     @current_user = nil
   end
 
@@ -32,6 +33,15 @@ module AccessHelper
   def session_active
     if user_signed_in?
       redirect_to dash_welcome_path
+    end
+  end
+  def set_cart
+    if Cart.where(:user_id => current_user.id).present?
+      @cart = Cart.where(:user_id => current_user.id).first
+      session[:cart_id]= @cart.id
+    else
+      @cart = Cart.create(:user_id => current_user.id)
+      session[:cart_id] = @cart.id
     end
   end
 end
