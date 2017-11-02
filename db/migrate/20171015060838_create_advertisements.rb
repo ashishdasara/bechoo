@@ -1,12 +1,12 @@
 class CreateAdvertisements < ActiveRecord::Migration[5.1]
   def change
     create_table :advertisements do |t|
-      t.string :name
-      t.text :description
-      t.integer :price
-      t.string :location
+      t.string :name, null: false
+      t.text :description, null: false
+      t.integer :price, null: false
+      t.string :location, null: false
       t.integer :user_id
-      t.string :user_username, uniqueness: true
+      t.string :user_username, null: false
       t.string :user_contact_no
       t.integer :category_id
       t.integer :sub_category_id

@@ -9,14 +9,14 @@
 <div class="form-group">
   <%= advertisement.label :category_id, "Category", class: "col-md-4 control-label" %>
   <div class="col-md-4">
-    <%= advertisement.collection_select :category_id, Category.order(:name), :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
+    <%= advertisement.collection_select :category_id, Category.sorted, :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
   </div>
 </div>
 
 <div class="form-group">
   <%= advertisement.label :sub_category_id, "Sub-Category", class: "col-md-4 control-label" %>
   <div class="col-md-4">
-    <%= advertisement.grouped_collection_select :sub_category_id, Category.order(:name), :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
+    <%= advertisement.grouped_collection_select :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
   </div>
 </div>
 
@@ -58,7 +58,7 @@
   </div>
 <% end %>
 <div class="form-group">
-  <%= advertisement.label :image, "Image", class: "col-md-4 control-label" %>
+  <%= advertisement.label :image, "Images", class: "col-md-4 control-label" %>
   <div class="col-md-4">
     <%= advertisement.file_field :image %>
   </div>

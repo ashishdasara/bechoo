@@ -4,6 +4,7 @@
       <h2> <%= @user.first_name %> <%= @user.last_name %></h2>
       <h3><strong>email id: </strong> <%=@user.email %> </h3>
       <h3><strong>username: </strong> <%=@user.username %> </h3>
+      <h3><strong>location: </strong> <%=@user.location %> </h3>
       <h3><strong>contact number: </strong> <%=@user.contact_no %> </h3>
       <% if @user.advertisements.size != 0 %>
       <h3><strong>No. of Ads posted:</strong> <%= @user.advertisements.size %></h3>

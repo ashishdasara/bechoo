@@ -7,7 +7,7 @@
       </div>
       <div class="cart-body">
         <% if @cart.cart_products.size != 0 %>
-          <% @cart.cart_products.each do |product| %>
+          <% @cart.cart_products.newest_first.each do |product| %>
             <% @advertisement = Advertisement.find(product.advertisement_id) %>
             <div class="cart-product">
               <div class="col-lg-4 image-box">

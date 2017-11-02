@@ -1,5 +1,4 @@
 <% @conversation_count = 0 %>
-<%= @conversation_count %>
 <div class="container">
   <div class="ui segment">
     <h3>Your Conversations</h3>
@@ -14,7 +13,9 @@
               <% recipient = User.find(conversation.sender_id) %>
             <% end %>
             <div class="">
-              <%= link_to recipient.first_name.capitalize, conversation_messages_path(conversation) %>
+              <h4>
+                <%= link_to ": #{recipient.first_name.capitalize}", conversation_messages_path(conversation) %>
+              </h4>
               <% @conversation_count +=1 %>
             </div>
           <% end %>

@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      UserMailer.welcome_email(@user).deliver_now
       flash[:notice] = "Signup Successful"
       redirect_to(access_menu_path)
     else
@@ -45,6 +46,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :email, :contact_no)
+    params.require(:user).permit(:first_name, :last_name, :username, :email, :contact_no, :location, :password, :password_confirmation, :approved, :admin)
   end
 end

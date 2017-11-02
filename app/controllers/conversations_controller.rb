@@ -11,7 +11,6 @@ class ConversationsController < ApplicationController
   end
 
   def index
-    @users = User.all
     @conversations = Conversation.all
   end
 private

@@ -1,22 +1,31 @@
-<% if @advertisements.count != 0 %>
-  <div class="container">
+<div class="container">
+  <% if @advertisements.count != 0 %>
     <div class="row">
 
       <% @advertisements.each do |advertisement| %>
+        <% if advertisement.user_id == current_user.id %>
+          <% @class_disabled = "disabled" %>
+        <% else %>
+          <% @class = "" %>
+        <% end %>
 
-      <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
-        <div class="advert">
-          <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
-          <% if session[:user_id] != nil %>
-
-            <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success", method: 'post' ) %>
-            <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning", method: 'post' %>
-          <% end %>
-
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
+          <div class="advert">
+            <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
+            <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
+            <% if session[:user_id] != nil %>
+              <% if advertisement.user_id.present? %>
+                <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+              <% else %>
+                <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
-
+      <% end %>
     </div>
-  </div>
+  <% else %>
+      <h3>No Ads posted yet!</h3>
+      <p><%= link_to "Post an ad", new_advertisement_path %></p>
   <% end %>
+</div>

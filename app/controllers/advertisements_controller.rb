@@ -9,11 +9,12 @@ class AdvertisementsController < ApplicationController
   end
 
   def index
-    @advertisements = Advertisement.all
+    @advertisements = Advertisement.newest_first
   end
 
   def show
     @advertisement = Advertisement.find(params[:id])
+    @comments = @advertisement.comments.newest_first.first(3)
   end
 
   def new

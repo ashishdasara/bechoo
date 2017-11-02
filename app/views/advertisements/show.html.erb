@@ -31,8 +31,8 @@
         <span>Comments</span>
         <%= link_to("Add Comment", new_comment_path(:advertisement_id => @advertisement.id), :class => "comment_link") %>
       </div>
-      <% if @advertisement.comments.size !=0  %>
-        <% @advertisement.comments.first(3).each do |comment|%>
+      <% if @comments.size !=0  %>
+        <% @comments.each do |comment|%>
           <div class="show-comment">
             <p class="comment-delete">
               <% if comment.user_id == current_user.id %>
@@ -52,7 +52,7 @@
         </div>
       <% end %>
 
-      <% if @advertisement.comments.size > 3 %>
+      <% if @comments.size > 3 %>
         <div class="comment-links">
           <p><%= link_to("Show all comments", comments_path(:advertisement_id => @advertisement.id), :class => "comment_link") %></p>
         </div>

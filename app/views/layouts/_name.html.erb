@@ -11,12 +11,12 @@
         </h3>
         <h3>
           <%= link_to carts_path do%>
-          <span class="glyphicon glyphicon-shopping-cart"></span> Cart
+          <span class="glyphicon glyphicon-shopping-cart"></span> Cart(<%= Cart.find(session[:cart_id]).cart_products.size %>)
           <% end %>
         </h3>
-        <ul class="dropdown-menu dropdown-menu-center">
+        <ul class="dropdown-menu">
           <li class="text-center"> <%= link_to "Home", advertisements_path %> </li>
-          <li class="text-center"><%= link_to("Post Ad", new_advertisement_path) %> </li>
+          <li class="text-center"><%= link_to("My Conversations", conversations_path) %> </li>
           <% if current_user.advertisements.size != 0 %>
           <li class="text-center"> <%= link_to "Show your Ads", advertisements_view_path %> </li>
           <% end %>

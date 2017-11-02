@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 20171030034501) do
 
   create_table "advertisements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "price"
-    t.string "location"
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "price", null: false
+    t.string "location", null: false
     t.integer "user_id"
-    t.string "user_username"
+    t.string "user_username", null: false
     t.string "user_contact_no"
     t.integer "category_id"
     t.integer "sub_category_id"
@@ -52,18 +52,21 @@ ActiveRecord::Schema.define(version: 20171030034501) do
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "text"
-    t.integer "user_id"
-    t.integer "advertisement_id"
+    t.string "text", null: false
+    t.integer "user_id", null: false
+    t.integer "advertisement_id", null: false
+    t.boolean "approved", default: false
+    t.bigint "approved_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advertisement_id"], name: "index_comments_on_advertisement_id"
+    t.index ["approved_by_id"], name: "index_comments_on_approved_by_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 20171030034501) do
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.text "body"
+    t.text "body", null: false
     t.bigint "conversation_id"
     t.bigint "user_id"
     t.boolean "read", default: false
@@ -86,8 +89,8 @@ ActiveRecord::Schema.define(version: 20171030034501) do
   end
 
   create_table "sub_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "name"
-    t.integer "category_id"
+    t.string "name", null: false
+    t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sub_categories_on_category_id"
@@ -98,8 +101,11 @@ ActiveRecord::Schema.define(version: 20171030034501) do
     t.string "last_name", limit: 15
     t.string "username", limit: 20
     t.string "email", null: false
+    t.string "contact_no", null: false
+    t.string "location", null: false
     t.string "password_digest", null: false
-    t.string "contact_no"
+    t.boolean "approved", default: false
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
