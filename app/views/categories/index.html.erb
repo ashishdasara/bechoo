@@ -1,20 +1,24 @@
-<%= link_to("Add New Category", new_category_path, :class => 'add-link') %>
 
-<table class="listing" summary="Subject list">
-  <tr class="header">
-    <th>Name</th>
-    <th>Sub Categories</th>
-    <th>Actions</th>
-  </tr>
-  <% @categories.each do |category| %>
-  <tr>
-    <td><%= category.name %></td>
-    <td><%= category.sub_categories.size %></td>
-    <td>
-      <%= link_to("Show Subcategories", sub_categories_path(:category_id => category.id), :class => 'action show') %>
-      <%= link_to("Add Subcategory", new_sub_category_path(:category_id => category.id), :class => 'action add') %>
-      <%= link_to("Delete category", delete_category_path(category), :class => 'action delete') %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+<div class="container">
+  <div class="row">
+    <%= link_to("Add New Category", new_category_path, :class => 'add-link') %>
+    <table class="categories" summary="Subject list">
+      <tr class="table_head">
+        <th class="col-md-4">Name</th>
+        <th class="col-md-4">Sub Categories</th>
+        <th class="col-md-4">Actions</th>
+      </tr>
+      <% @categories.each do |category| %>
+        <tr class="table_body">
+          <td><%= category.name.camelcase %></td>
+          <td><%= category.sub_categories.size %></td>
+          <td>
+            <%= link_to("Show Subcategories", sub_categories_path(category_id: category.id)) %>
+            <%= link_to("Add Subcategory", new_sub_category_path(category_id: category.id)) %>
+            <%= link_to( 'Delete', category_path(category), method: :delete, data: {confirm: "Are you sure?"} ) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

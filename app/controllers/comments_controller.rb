@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   def index
     @advertisement = Advertisement.find(params[:advertisement_id])
-    @comments = @advertisement.comments.all
+    @comments = @advertisement.comments.newest_first
   end
 
   def new

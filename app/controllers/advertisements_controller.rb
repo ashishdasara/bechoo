@@ -1,20 +1,31 @@
 class AdvertisementsController < ApplicationController
-  include AccessHelper
   before_action :confirm_logged_in, :only => [:edit]
-
 
   def view
     @user = User.find(session[:user_id])
-    @advertisements = @user.advertisements
+    @advertisements = @user.advertisements.newest_first
   end
 
   def index
-    @advertisements = Advertisement.newest_first
+    @advertisements = Advertisement.all
+    if params[:search_name]
+      @advertisements = @advertisements.search_name(params[:search_name])
+    end
+    if params[:search_location]
+      @advertisements = @advertisements.search_location(params[:search_location])
+    end
+    if params[:category]
+      @advertisements = @advertisements.search_category(params[:category])
+    end
+    if params[:sub_category_id]
+      @advertisements = @advertisements.search_sub_category(params[:sub_category_id])
+    end
   end
 
   def show
     @advertisement = Advertisement.find(params[:id])
-    @comments = @advertisement.comments.newest_first.first(3)
+    @comments = @advertisement.comments.newest_first
+    @pictures = @advertisement.pictures
   end
 
   def new
@@ -31,6 +42,12 @@ class AdvertisementsController < ApplicationController
       @advertisement.user = current_user
     end
     if @advertisement.save
+      if params[:images]
+        #===== The magic is here ;)
+        params[:images].each { |image|
+          @advertisement.pictures.create(image: image)
+        }
+      end
       flash[:notice] = "Advertisement created. Wait till it is approved"
       redirect_to(advertisement_path(@advertisement))
     else
@@ -68,6 +85,6 @@ class AdvertisementsController < ApplicationController
   private
 
   def advertisement_params
-    params.require(:advertisement).permit(:image, :name, :description, :price, :location, :category_id, :sub_category_id, :user_id, :user_username, :user_contact_no)
+    params.require(:advertisement).permit(:name, :description, :price, :location, :category_id, :sub_category_id, :user_id, :user_username, :user_contact_no)
   end
 end

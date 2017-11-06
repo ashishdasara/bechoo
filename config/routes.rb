@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
 
 
-  root 'access#login'
+  root 'advertisements#index'
 
 
   get 'access/menu'
   get 'access/login'
-  get 'access/signup'
   post 'access/attempt_login'
   get 'access/logout'
 

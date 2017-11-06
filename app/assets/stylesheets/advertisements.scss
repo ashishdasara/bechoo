@@ -4,6 +4,35 @@
 
 .container
 {
+  .search_bar
+  {
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 15px 0px;
+    color: #f8f8f8;
+    border: 1px solid black;
+
+    input
+    {
+      border: 1px solid black;
+      border-radius: 3px;
+      margin: auto 10px;
+      padding: 5px;
+      background-color: black;
+    }
+    select
+    {
+      background-color: black;
+      padding: 6px;
+      border-radius: 3px;
+      margin: auto 10px;
+      width: 100px;
+    }
+    button
+    {
+      background-color: black;
+    }
+  }
   .row
   {
     .advert-columns

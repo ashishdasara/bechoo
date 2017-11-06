@@ -1,21 +1,29 @@
-<p>Login</p>
 
-<div class="login">
-  <%= form_tag(access_attempt_login_path, :method => :post) do %>
-  <table>
-    <tr>
-      <td><%= label_tag(:username) %></td>
-      <td><%= text_field_tag(:username, params[:username]) %></td>
-    </tr>
-    <tr>
-      <td><%= label_tag(:password) %></td>
-      <td><%= password_field_tag(:password) %></td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td><%= submit_tag("Log In") %></td>
-    </tr>
-  </table>
-  <%= link_to("Signup", new_user_path ) %>
-  <% end %>
+<% @page_title = "Sign-in" %>
+
+<div class="container form_box  ">
+  <div class="row">
+    <%= form_for :session, url: access_attempt_login_path, html: {class: "form-horizontal center"}, :method => :post do |f|%>
+      <div class="form-group">
+        <%= f.label :username, "Username", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+          <%= f.text_field :username, placeholder: "Enter Username", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "Password", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+          <%= f.password_field :password, placeholder: "Enter Password", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-5">
+          <%= f.submit "Submit", class: "btn" %>
+          <%= link_to "Signup", new_user_path, class: "btn"%>
+        </div>
+      </div>
+
+
+    <% end %>
+  </div>
 </div>

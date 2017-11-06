@@ -11,11 +11,11 @@
             <% @advertisement = Advertisement.find(product.advertisement_id) %>
             <div class="cart-product">
               <div class="col-lg-4 image-box">
-                <%= image_tag(@advertisement.image(:thumb)) %>
+                <%= image_tag(@advertisement.pictures.first.image(:thumb)) %>
               </div>
               <div class="col-lg-8 content-box">
                 <%= link_to advertisement_path(@advertisement) do%>
-                  <h3><%= @advertisement.name %></h3>
+                  <h3><%= @advertisement.name.camelcase %></h3>
                 <% end %>
                 <%= link_to cart_product_path(product), method: 'delete' do %>
                   <span class="btn btn-danger glyphicon glyphicon-trash" style="float: right;"></span>
@@ -23,7 +23,7 @@
                 <p><span><%= @advertisement.category.name.camelcase + " >> "%></span>
                 <span><%= @advertisement.sub_category.name.camelcase %></span></p>
                 <h4><strong> ₹ <%= @advertisement.price %></strong></h4>
-                <p>Seller: <%= @advertisement.user.name %></p>
+                <p>Seller: <%= @advertisement.user_username.camelcase %></p>
                 <div class="buttons">
                   <%= form_for product, html: {class: "form-horizontal center"} do |product| %>
                     Quantity:

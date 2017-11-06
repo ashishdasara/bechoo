@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.welcome_email(@user).deliver_now
       flash[:notice] = "Signup Successful"
+      log_in(@user)
+      set_cart
       redirect_to(access_menu_path)
     else
       render(new_user_path)

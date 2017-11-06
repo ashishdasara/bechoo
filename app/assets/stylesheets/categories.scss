@@ -1,3 +1,35 @@
 // Place all the styles related to the Categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.categories
+{
+  width: 100%;
+  .table_head
+  {
+    th
+    {
+      background-color: black;
+      border: 1px solid white;
+      color: #f8f8f8;
+      font-size: 16px;
+      text-align: center;
+      padding: 15px;
+    }
+  }
+  .table_body
+  {
+    td
+    {
+      background-color: #cdcdcd;
+      border: 1px solid black ;
+      padding: 15px;
+      text-align: center;
+      a
+      {
+        display: block;
+        color: black;
+      }
+    }
+  }
+}

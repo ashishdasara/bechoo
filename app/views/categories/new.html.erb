@@ -1,15 +1,18 @@
-<%= link_to("Back to list", categories_path, :class => 'add-link') %>
-<div class="categories new">
-  <h2>Add new categories</h2>
-  <%= form_for(@category, :url => categories_path, :method => "post") do |f| %>
-    <table summary = "Category form">
-      <tr>
-        <th>Category Name</th>
-        <td><%= f.text_field(:name) %></td>
-      </tr>
-    </table>
-    <div class="form-buttons">
-      <%= f.submit("Create Category") %>
-    </div>
-  <% end %>
+<div class="container form_box  ">
+  <div class="row">
+    <%= link_to("Back to list", categories_path, :class => 'show-link') %>
+    <%= form_for(@category, :url => categories_path, :method => "post") do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Category", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+          <%= f.text_field :name, placeholder: "Enter Name", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-4">
+          <%= f.submit "Submit", class: "btn" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

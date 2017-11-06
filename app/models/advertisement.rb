@@ -2,10 +2,9 @@ class Advertisement < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :category
   belongs_to :sub_category
-  has_many :comments, :dependent => :destroy
+  has_many :comments, dependent: :destroy
+  has_many :pictures, dependent: :destroy
 
-  has_attached_file :image, styles: { large: "600x600>", medium: "300x300>", thumb: "200x200#", small: "100x100#" }, :url  => "/assets/images/users/:id/:style/:basename.:extension", :path => ":rails_root/public/assets/images/users/:id/:style/:basename.:extension"
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates :name,            presence: true
   validates :description,     presence: true
@@ -18,11 +17,17 @@ class Advertisement < ApplicationRecord
   validates :category_id,     presence: true
   validates :sub_category_id, presence: true
 
-
-  scope :approved, lambda { where(:approved => true)}
-  scope :unapproved, lambda { where(:approved => false)}
+  scope :approved, lambda { where(approved: true)}
+  scope :unapproved, lambda { where(approved: false)}
   scope :newest_first, lambda { order("created_at DESC") }
-  scope :search_name, lambda {|query| where(["name LIKE ?", "%#{query}%"])}
-  scope :search_location, lambda {|query| where(["location LIKE ?", "%#{query}%"])}
+  scope :search_name, lambda {|search_name| where(["name LIKE ?", "%#{search_name}%"])}
+  scope :search_location, lambda {|search_location| where(["location LIKE ?", "%#{search_location}%"])}
+  scope :search_category, lambda {|category_id| where(["category_id LIKE ?", "%#{category_id}%"])}
+  scope :search_sub_category, lambda {|sub_category_id| where(["sub_category_id LIKE ?", "%#{sub_category_id}%"])}
+
+
+
+  before_save { |advert| advert.name = advert.name.downcase }
+  before_save { |advert| advert.location = advert.location.downcase }
 
 end

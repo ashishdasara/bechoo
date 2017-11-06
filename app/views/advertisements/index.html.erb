@@ -1,19 +1,38 @@
 <div class="container">
+  <div class="search_parameters">
+    <%= params[:search_category] %>
+    <div style="text-align: center"class="search_bar">
+      <%= form_tag(advertisements_path, :method => "get", id: "search-form") do %>
+        <%= text_field_tag :search_name, params[:search_name], placeholder: "Enter name", include_blank: true%>
+
+        <%= text_field_tag :search_location, params[:search_location], placeholder: "Location"%>
+        <%= collection_select nil, :category, Category.sorted, :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
+        <%= grouped_collection_select nil, :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
+
+        <%= button_tag(type: 'submit', class: "btn btn-md") do %>
+          <span class="glyphicon glyphicon-search"></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <%= params[:category_id] %>
   <% if @advertisements.count != 0 %>
     <div class="row">
 
       <% @advertisements.each do |advertisement| %>
-        <% if advertisement.user_id == current_user.id %>
-          <% @class_disabled = "disabled" %>
-        <% else %>
-          <% @class = "" %>
+        <% if user_signed_in? %>
+          <% if advertisement.user_id == current_user.id %>
+            <% @class_disabled = "disabled" %>
+          <% else %>
+            <% @class = "" %>
+          <% end %>
         <% end %>
-
         <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
           <div class="advert">
+
             <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
             <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
-            <% if session[:user_id] != nil %>
+            <% if user_signed_in? %>
               <% if advertisement.user_id.present? %>
                 <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
               <% else %>

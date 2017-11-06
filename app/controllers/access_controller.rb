@@ -1,5 +1,4 @@
 class AccessController < ApplicationController
-  include AccessHelper
   before_action :confirm_logged_in, :only => :menu
 
 
@@ -11,10 +10,10 @@ class AccessController < ApplicationController
   end
 
   def attempt_login
-    if params[:username].present? && params[:password].present?
-      found_user = User.where(:username => params[:username]).first
+    if params[:session][:username].present? && params[:session][:password].present?
+      found_user = User.where(:username => params[:session][:username].downcase).first
       if found_user
-        authorized_user = found_user.authenticate(params[:password])
+        authorized_user = found_user.authenticate(params[:session][:password])
       end
     end
 

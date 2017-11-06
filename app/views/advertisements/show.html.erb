@@ -1,12 +1,26 @@
 <% @page_title = "Show advertisement" %>
-
+<% if user_signed_in? %>
+  <% if @advertisement.user_id == current_user.id %>
+    <% @class_disabled = "disabled" %>
+  <% else %>
+    <% @class = "" %>
+  <% end %>
+<% end %>
 <div class="container">
   <div class="row">
 
-    <div class="col-12 col-sm-5 col-md-4 col-lg-4 image_display">
-      <%=image_tag(@advertisement.image.url(:medium)) %>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 image_display">
+      <div class="image_display_pane">
+        <%=image_tag(@pictures.first.image.url(:large)) %>
+      </div>
+      <% @pictures.each do |pic|%>
+        <div class="col-xs-4 image_thumb">
+          <%= image_tag(pic.image.url(:large)) %>
+        </div>
+
+      <% end %>
     </div>
-    <div class="col-12 col-sm-7 col-md-8 col-lg-8 info_display">
+    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 info_display">
       <h2><strong><%= @advertisement.name.camelcase %></strong></h2>
       <span><strong><%= @advertisement.category.name.camelcase + " >> "%></strong></span>
       <span><strong><%= @advertisement.sub_category.name.camelcase %></strong></span>
@@ -15,11 +29,16 @@
         <span><%= @advertisement.location.camelcase %></span>
       </h3>
       <p><%= @advertisement.description %></p>
-      <p>Add posted by: <%= @advertisement.user_username.camelcase %></p>
+      <p>Add posted by: <%= @advertisement.user_username%></p>
       <h3><strong> ₹ <%= @advertisement.price %></strong></h3>
-      <%= link_to("Add to Cart", cart_products_path(advertisement_id: @advertisement.id), class: "btn btn-success", method: 'post' ) %>
-      <% if @advertisement.user_id.present? %>
-        <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: @advertisement.user.id), class: "btn btn-warning", method: 'post' %>
+
+      <%= link_to("Add to Cart", cart_products_path(advertisement_id: @advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
+      <% if user_signed_in? %>
+        <% if @advertisement.user_id.present? %>
+          <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: @advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+        <% else %>
+          <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
+        <% end %>
       <% end %>
 
     </div>
@@ -32,7 +51,7 @@
         <%= link_to("Add Comment", new_comment_path(:advertisement_id => @advertisement.id), :class => "comment_link") %>
       </div>
       <% if @comments.size !=0  %>
-        <% @comments.each do |comment|%>
+        <% @comments.first(3).each do |comment|%>
           <div class="show-comment">
             <p class="comment-delete">
               <% if comment.user_id == current_user.id %>
@@ -59,5 +78,7 @@
       <% end %>
     </div>
   </div>
-
+  <% @advertisement.pictures.each do |pic|%>
+    <%= image_tag(pic.image.url(:thumb)) %>
+  <% end %>
 </div>

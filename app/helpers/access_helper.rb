@@ -19,14 +19,15 @@ module AccessHelper
   end
 
   def confirm_logged_in
-      unless user_signed_in?
-         redirect_to access_login_path
-      end
-   end
+    unless session[:user_id]
+      flash[:notice] = "Please sign in."
+      redirect_to(access_login_path)
+    end
+  end
 
-  def exclusive_admin
+  def is_admin
     if current_user.admin==false
-      redirect_to dash_welcome_path
+      redirect_to advertisements_path
     end
   end
 
