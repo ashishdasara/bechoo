@@ -3,38 +3,42 @@ Rails.application.routes.draw do
 
   root 'advertisements#index'
 
-
-  get 'access/menu'
-  get 'access/login'
+  get 'auth/:provider/callback', to: 'access#omni'
+  get 'auth/failure', to: redirect('advertisements#index')
+  get 'admin', to: 'access#admin'
+  get  'login', to: 'access#login', as: 'login'
   post 'access/attempt_login'
-  get 'access/logout'
+  get 'logout', to: 'access#logout', as: 'logout'
 
-  resources :comments, :carts, :cart_products
-
-
-  scope '/admin' do
-    resources :sub_categories
-    resources :categories do
-      member do
-        get :delete
-      end
-    end
-  end
-
-  resources :conversations do
-    resources :messages
-  end
-  resources :users do
-    member do
-      get :delete
-    end
-  end
-
-  get 'advertisements/view'
   resources :advertisements do
+    get 'view', on: :collection
+  end
+
+  resources :carts, only: :index
+  resources :cart_products, only: [:index, :update, :destroy]
+
+  resources :categories, only: [:index, :new, :create, :destroy] do
+    resources :sub_categories, only: [:index, :new, :create, :destroy]
+  end
+
+  resources :comments, except: [:edit, :show, :update] do
+    patch 'approve', on: :member
+    get 'unapproved_index', on: :collection
+  end
+
+  resources :pictures, only: :destroy
+
+  resources :conversations, only: :index do
+    resources :messages, only: :index
+  end
+
+  resources :users, except:[:delete] do
     member do
-      get :delete
+      patch 'approve'
+      patch 'change_password'
+      get 'edit_password'
     end
   end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

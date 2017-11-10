@@ -1,8 +1,8 @@
-
 <div class="container">
   <div class="row">
-    <%= link_to("Add New Category", new_category_path, :class => 'add-link') %>
-    <table class="categories" summary="Subject list">
+    <p><%= link_to "Back to Admin panel", admin_path %></p>
+    <%= link_to("Add New Category", new_category_path, class: 'add-link') %>
+    <table class="table_view" summary="Subject list">
       <tr class="table_head">
         <th class="col-md-4">Name</th>
         <th class="col-md-4">Sub Categories</th>
@@ -13,8 +13,8 @@
           <td><%= category.name.camelcase %></td>
           <td><%= category.sub_categories.size %></td>
           <td>
-            <%= link_to("Show Subcategories", sub_categories_path(category_id: category.id)) %>
-            <%= link_to("Add Subcategory", new_sub_category_path(category_id: category.id)) %>
+            <%= link_to("Show Subcategories", category_sub_categories_path(category_id: category.id)) %>
+            <%= link_to("Add Subcategory", new_category_sub_category_path(category_id: category.id)) %>
             <%= link_to( 'Delete', category_path(category), method: :delete, data: {confirm: "Are you sure?"} ) %>
           </td>
         </tr>

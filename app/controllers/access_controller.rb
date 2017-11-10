@@ -1,17 +1,20 @@
 class AccessController < ApplicationController
-  before_action :confirm_logged_in, :only => :menu
+  before_action :confirm_logged_in, only: :admin
+  before_action :is_admin, only: :admin
 
 
-  def menu
-
+  def admin
   end
 
   def login
+    if current_user
+      flash[:notice] = "You are already logged in."
+      redirect_to root_url
+    end
   end
-
   def attempt_login
     if params[:session][:username].present? && params[:session][:password].present?
-      found_user = User.where(:username => params[:session][:username].downcase).first
+      found_user = User.where(username: params[:session][:username].downcase).approved.first
       if found_user
         authorized_user = found_user.authenticate(params[:session][:password])
       end
@@ -21,7 +24,11 @@ class AccessController < ApplicationController
       log_in(authorized_user)
       flash[:notice] = "You are now logged in."
       set_cart
-      redirect_to(advertisements_path)
+      if authorized_user.admin == true
+        redirect_to(admin_path)
+      else
+        redirect_to(advertisements_path)
+      end
     else
       flash.now[:notice] = "Invalid username/password combination."
       render('login')
@@ -31,9 +38,21 @@ class AccessController < ApplicationController
   def logout
     log_out
     flash[:notice] = "Logged out..."
-    redirect_to(access_login_path)
+    redirect_to(login_path)
   end
 
-  private
+  def omni
+    if user_signed_in?
+      flash[:danger] = "You are already logged through an account"
+      redirect_to root_url
+    else
+      hash  = request.env["omniauth.auth"]
+      @user = User.find_or_create_from_auth_hash(hash)
+      @user.save!
+    	session[:user_id] = @user.id
+      set_cart
+    	redirect_to root_url
+    end
+  end
 
 end

@@ -9,11 +9,11 @@
       <% if @user.advertisements.size != 0 %>
       <h3><strong>No. of Ads posted:</strong> <%= @user.advertisements.size %></h3>
       <h3>
-        <%= link_to("Show Posted Ads", advertisements_view_path, {class: "btn" }) %>
+        <%= link_to("Show Posted Ads", view_advertisements_path, {class: "btn" }) %>
       <% end %>
         <%= link_to("Your Orders", '#', {class: "btn" }) %>
         <%= link_to("Edit Profile", edit_user_path(@user.id), {class: "btn" }) %>
-        <%= link_to("Change Password", '#', {class: "btn" }) %>
+        <%= link_to("Change Password", edit_password_user_path, {class: "btn" }) %>
       </h3>
     </div>
   </div>

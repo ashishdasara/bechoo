@@ -16,6 +16,5 @@
 // require turbolinks
 //= require bootstrap-sprockets
 //= require sub_categories
-//= require cart_products
 //= require advertisements
 // require_tree.

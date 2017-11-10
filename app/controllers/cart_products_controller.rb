@@ -10,7 +10,7 @@ class CartProductsController < ApplicationController
       @cart_product = CartProduct.where(cart_id: @cart.id, advertisement_id: @advertisement.id).first
       @cart_product.quantity += 1
     else
-      @cart_product = CartProduct.new(:advertisement_id => @advertisement.id)
+      @cart_product = CartProduct.new(advertisement_id: @advertisement.id)
       @cart_product.cart = @cart
     end
     if @cart_product.save
@@ -26,10 +26,10 @@ class CartProductsController < ApplicationController
     @cart_product = CartProduct.find(params[:id])
     if @cart_product.update_attributes(cart_product_params)
       flash[:notice] = "Updated Successfully..."
-      redirect_to carts_path
     else
-      flash.now[:notice] = "Something's wrong!!!..."
+      flash[:notice] = "Invalid quantity input..."
     end
+    redirect_to carts_path
   end
 
   def destroy

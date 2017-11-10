@@ -22,13 +22,12 @@
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 info_display">
       <h2><strong><%= @advertisement.name.camelcase %></strong></h2>
-      <span><strong><%= @advertisement.category.name.camelcase + " >> "%></strong></span>
-      <span><strong><%= @advertisement.sub_category.name.camelcase %></strong></span>
+      <span><strong><%= "#{@advertisement.category.name.camelcase} >>  #{@advertisement.sub_category.name.camelcase}" %></strong></span>
       <h3>
         <span class = "glyphicon glyphicon-map-marker"></span>
         <span><%= @advertisement.location.camelcase %></span>
       </h3>
-      <p><%= @advertisement.description %></p>
+      <p><%= @advertisement.description.capitalize %></p>
       <p>Add posted by: <%= @advertisement.user_username%></p>
       <h3><strong> ₹ <%= @advertisement.price %></strong></h3>
 
@@ -48,20 +47,24 @@
     <div class="comments-box">
       <div class="comment-links">
         <span>Comments</span>
-        <%= link_to("Add Comment", new_comment_path(:advertisement_id => @advertisement.id), :class => "comment_link") %>
+        <%= link_to("Add Comment", new_comment_path(advertisement_id: @advertisement.id), class: "comment_link") %>
       </div>
       <% if @comments.size !=0  %>
         <% @comments.first(3).each do |comment|%>
           <div class="show-comment">
             <p class="comment-delete">
-              <% if comment.user_id == current_user.id %>
-                <%= link_to comment_path(comment), method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"} do%>
-                  <span class="glyphicon glyphicon-trash"></span>
+              <% if session[:user_id]!= nil %>
+                <% if comment.user_id == current_user.id %>
+                  <%= link_to comment_path(comment), method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"} do%>
+                    <span class="glyphicon glyphicon-trash"></span>
+                  <% end %>
                 <% end %>
               <% end %>
             </p>
             <p><%= comment.text %></p>
-            <span><%= "-" + comment.user.name%></span>
+            <span><%= "- #{comment.user.name}"%></span>
+            <span><%= "(approved_by #{User.find(comment.approved_by_id).name})" %></span>
+
 
           </div>
         <% end %>
@@ -73,12 +76,8 @@
 
       <% if @comments.size > 3 %>
         <div class="comment-links">
-          <p><%= link_to("Show all comments", comments_path(:advertisement_id => @advertisement.id), :class => "comment_link") %></p>
+          <p><%= link_to("Show all comments", comments_path(advertisement_id: @advertisement.id), class: "comment_link") %></p>
         </div>
       <% end %>
     </div>
   </div>
-  <% @advertisement.pictures.each do |pic|%>
-    <%= image_tag(pic.image.url(:thumb)) %>
-  <% end %>
-</div>

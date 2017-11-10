@@ -8,7 +8,7 @@
       <% @advertisements.each do |advertisement| %>
       <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
         <div class="advert">
-          <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
+          <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
           <%= link_to("Edit", edit_advertisement_path(advertisement), class: "btn btn-warning" ) %>
           <%= link_to("Delete", advertisement_path(advertisement),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
         </div>

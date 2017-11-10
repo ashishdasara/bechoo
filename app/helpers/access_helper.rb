@@ -19,29 +19,25 @@ module AccessHelper
   end
 
   def confirm_logged_in
-    unless session[:user_id]
+    unless user_signed_in?
       flash[:notice] = "Please sign in."
-      redirect_to(access_login_path)
+      redirect_to(login_path)
     end
   end
 
   def is_admin
-    if current_user.admin==false
+    unless current_user.admin
+      flash[:notice] = "You don't the required permissions."
       redirect_to advertisements_path
     end
   end
 
-  def session_active
-    if user_signed_in?
-      redirect_to dash_welcome_path
-    end
-  end
   def set_cart
-    if Cart.where(:user_id => current_user.id).present?
-      @cart = Cart.where(:user_id => current_user.id).first
+    if Cart.where(user_id: current_user.id).present?
+      @cart = Cart.where(user_id: current_user.id).first
       session[:cart_id]= @cart.id
     else
-      @cart = Cart.create(:user_id => current_user.id)
+      @cart = Cart.create(user_id: current_user.id)
       session[:cart_id] = @cart.id
     end
   end

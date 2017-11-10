@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <p><%= link_to "Back to Admin panel", admin_path %></p>
+    <% if @comments.size != 0 %>
+    <h3>New Comments on posts</h3>
+      <table class="table_view">
+        <thead class="table_head">
+          <th>Advertisement Name</th>
+          <th>Advertisement Submitted By</th>
+          <th>Name of Commenter</th>
+          <th>Actions</th>
+        </thead>
+        <tbody class="table_body">
+          <% @comments.each do |comment| %>
+            <tr>
+              <td><%= comment.advertisement.name.camelcase %></td>
+              <td><%= comment.user.name %></td>
+              <td><%= comment.user.name %></td>
+              <td>
+                <%= link_to "Delete Comment", comment_path(comment, admin_task: params[:admin_task]), method: :delete, data: {confirm: "Are you sure?"} %>
+                <%= link_to("Approve", approve_comment_path(comment), method: :patch, data: {confirm: "Are you sure?"}) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+    <h3>No new records found</h3>
+    <% end %>
+  </div>
+</div>

@@ -7,7 +7,7 @@
       <% end %>
     </h3>
     <% if user_signed_in? %>
-      <h3 data-toggle="dropdown" style="display: inline-block;">
+      <h3 data-toggle="dropdown">
         <span class="glyphicon glyphicon-user"></span>
         <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize%>
       </h3>
@@ -20,17 +20,16 @@
         <li class="text-center"> <%= link_to "Home", advertisements_path %> </li>
         <li class="text-center"><%= link_to("My Conversations", conversations_path) %> </li>
         <% if current_user.advertisements.size != 0 %>
-        <li class="text-center"> <%= link_to "Show your Ads", advertisements_view_path %> </li>
+        <li class="text-center"> <%= link_to "Show your Ads", view_advertisements_path %> </li>
         <% end %>
-        <li class="text-center"> <%= link_to "Edit Profile", user_path(@current_user.id) %></li>
-        <li class="text-center"> <%= link_to "Contact Us", "#" %></li>
-        <li class="text-center"><%= link_to "Logout", access_logout_path %></li>
+        <li class="text-center"> <%= link_to "Show Profile", user_path(@current_user.id) %></li>
+        <li class="text-center"><%= link_to "Logout", logout_path %></li>
       </ul>
 
     <% else %>
       <h3>
         <span class="glyphicon glyphicon-user"></span>
-        <%= link_to("Login", access_login_path) %>
+        <%= link_to("Login", login_path) %>
       </h3>
 
     <% end %>

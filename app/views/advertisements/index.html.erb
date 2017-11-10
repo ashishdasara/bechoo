@@ -1,13 +1,12 @@
 <div class="container">
   <div class="search_parameters">
-    <%= params[:search_category] %>
-    <div style="text-align: center"class="search_bar">
-      <%= form_tag(advertisements_path, :method => "get", id: "search-form") do %>
+    <div class="search_bar">
+      <%= form_tag(advertisements_path, method: "get", id: "search-form") do %>
         <%= text_field_tag :search_name, params[:search_name], placeholder: "Enter name", include_blank: true%>
 
         <%= text_field_tag :search_location, params[:search_location], placeholder: "Location"%>
-        <%= collection_select nil, :category, Category.sorted, :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
-        <%= grouped_collection_select nil, :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
+        <%= collection_select nil, :category, Category.sorted, :id, :name, include_blank: true, selected: nil, prompt: "Category", class: "form-control"%>
+        <%= grouped_collection_select nil, :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, include_blank: true, prompt: "Sub-Category", class: "form-control" %>
 
         <%= button_tag(type: 'submit', class: "btn btn-md") do %>
           <span class="glyphicon glyphicon-search"></span>
@@ -15,10 +14,11 @@
       <% end %>
     </div>
   </div>
-  <%= params[:category_id] %>
+  <% if user_signed_in? && current_user.admin == true %>
+    <p><%= link_to "Back to Admin panel", admin_path %></p>
+  <% end %>
   <% if @advertisements.count != 0 %>
     <div class="row">
-
       <% @advertisements.each do |advertisement| %>
         <% if user_signed_in? %>
           <% if advertisement.user_id == current_user.id %>
@@ -30,7 +30,8 @@
         <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
           <div class="advert">
 
-            <%= render(:partial => 'form_display', :locals => {:advertisement => advertisement}) %>
+            <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
+
             <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
             <% if user_signed_in? %>
               <% if advertisement.user_id.present? %>

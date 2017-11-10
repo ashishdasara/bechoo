@@ -18,19 +18,16 @@
                   <h3><%= @advertisement.name.camelcase %></h3>
                 <% end %>
                 <%= link_to cart_product_path(product), method: 'delete' do %>
-                  <span class="btn btn-danger glyphicon glyphicon-trash" style="float: right;"></span>
+                  <span class="btn btn-danger glyphicon glyphicon-trash"> </span>
                 <% end %>
-                <p><span><%= @advertisement.category.name.camelcase + " >> "%></span>
-                <span><%= @advertisement.sub_category.name.camelcase %></span></p>
+                <p><%= "#{@advertisement.category.name.camelcase} >>  #{@advertisement.sub_category.name.camelcase}" %></p>
                 <h4><strong> ₹ <%= @advertisement.price %></strong></h4>
                 <p>Seller: <%= @advertisement.user_username.camelcase %></p>
                 <div class="buttons">
                   <%= form_for product, html: {class: "form-horizontal center"} do |product| %>
                     Quantity:
-                    <button type="button" class="button_remove">-</button>
                     <%= product.text_field :quantity, placeholder: "Quantity" %>
-                    <button type="button" class="button_add">+</button>
-                    <%= product.submit 'Update', class: "btn btn-sm btn-info" %>
+                    <%= product.submit 'Update', class: "btn btn-sm btn-info", data: { disable_with: false } %>
                   <% end %>
                 </div>
               </div>

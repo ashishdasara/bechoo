@@ -103,13 +103,15 @@ ActiveRecord::Schema.define(version: 20171103102722) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "provider"
+    t.string "uid"
     t.string "first_name", limit: 15, null: false
     t.string "last_name", limit: 15
     t.string "username", limit: 20
     t.string "email", null: false
-    t.string "contact_no", null: false
-    t.string "location", null: false
-    t.string "password_digest", null: false
+    t.string "contact_no"
+    t.string "location", default: "India", null: false
+    t.string "password_digest"
     t.boolean "approved", default: false
     t.boolean "admin", default: false
     t.datetime "created_at", null: false

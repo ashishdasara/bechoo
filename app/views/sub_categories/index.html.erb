@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <%= link_to("Back to Categories list", categories_path) %>
-    <table class="categories">
+    <table class="table_view">
       <thead>
         <tr>
           <h3>Category: <%= @category.name.camelcase %></h3 >
@@ -14,10 +14,10 @@
       <% @sub_categories.each do |sub_category| %>
         <tr class="table_body">
           <td><%= sub_category.name.camelcase %></td>
-          <td><%= link_to( 'Delete', sub_category_path(sub_category, :category_id => @category.id), method: :delete, data: {confirm: "are you sure?"}) %></td>
+          <td><%= link_to( 'Delete', category_sub_category_path(sub_category, category_id: @category.id), method: :delete, data: {confirm: "are you sure?"}) %></td>
         </tr>
       <% end %>
     </table>
-    <%= link_to("Add Subcategory", new_sub_category_path(category_id: @category.id)) %>
+    <%= link_to("Add Subcategory", new_category_sub_category_path(category_id: @category.id)) %>
   </div>
 </div>

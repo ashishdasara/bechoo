@@ -9,14 +9,14 @@
 <div class="form-group">
   <%= advertisement.label :category_id, "Category", class: "col-md-4 control-label" %>
   <div class="col-md-4">
-    <%= advertisement.collection_select :category_id, Category.sorted, :id, :name, :include_blank => true, :selected => nil, class: "form-control"%>
+    <%= advertisement.collection_select :category_id, Category.sorted, :id, :name, include_blank: true, selected: nil, class: "form-control"%>
   </div>
 </div>
 
 <div class="form-group">
   <%= advertisement.label :sub_category_id, "Sub-Category", class: "col-md-4 control-label" %>
   <div class="col-md-4">
-    <%= advertisement.grouped_collection_select :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, :include_blank => true, class: "form-control" %>
+    <%= advertisement.grouped_collection_select :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, include_blank: true, class: "form-control" %>
   </div>
 </div>
 
@@ -40,9 +40,16 @@
     <%= advertisement.text_area :description, placeholder: "Description", class: "form-control" %>
   </div>
 </div>
+
+<div class="form-group">
+  <%= advertisement.label :pictures, class: 'col-md-4 control-label' %>
+  <div class="col-md-4 controls">
+    <%= file_field_tag "images[]", type: :file, multiple: true, class: "form-control" %>
+  </div>
+</div>
 <% if user_signed_in? %>
-      <%= advertisement.hidden_field :user_username, value: @current_user.username, placeholder: "Username", class: "form-control" %>
-      <%= advertisement.hidden_field :user_contact_no, value: @current_user.contact_no, placeholder: "Contact No.", class: "form-control" %>
+  <%= advertisement.hidden_field :user_username, value: @current_user.username, placeholder: "Username", class: "form-control" %>
+  <%= advertisement.hidden_field :user_contact_no, value: @current_user.contact_no, placeholder: "Contact No.", class: "form-control" %>
 <% else %>
   <div class="form-group">
     <%= advertisement.label :user_username, "Username", class: "col-md-4 control-label" %>
@@ -57,17 +64,3 @@
     </div>
   </div>
 <% end %>
-
-
-<div class="control-group">
-    <%= advertisement.label :pictures, :class => 'col-md-4 control-label' %>
-    <div class="col-md-4 controls">
-      <!-- The magic is coming ...look at my eyes....shazammmm -->
-      <!-- Use HTML5 multiple attribute to enable multiple selection
-           and pass back to controller all files as an array, ready
-           for paperclip!!
-           file_field_tag, since images is not a gallery attribute
-       -->
-      <%= file_field_tag "images[]", type: :file, multiple: true %>
-    </div>
-  </div>

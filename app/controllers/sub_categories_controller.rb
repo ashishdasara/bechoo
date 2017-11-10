@@ -7,7 +7,7 @@ class SubCategoriesController < ApplicationController
   end
 
   def new
-    @sub_category = SubCategory.new(:category_id => @category.id)
+    @sub_category = SubCategory.new(category_id: @category.id)
   end
 
   def create
@@ -20,19 +20,10 @@ class SubCategoriesController < ApplicationController
     end
   end
 
-  def delete
-  end
-
   def destroy
     @sub_category = SubCategory.find(params[:id])
     @sub_category.destroy
     redirect_to(categories_path)
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   private

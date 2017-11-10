@@ -1,5 +1,5 @@
 class AdvertisementsController < ApplicationController
-  before_action :confirm_logged_in, :only => [:edit]
+  before_action :confirm_logged_in, only: [:edit, :update]
 
   def view
     @user = User.find(session[:user_id])
@@ -8,29 +8,25 @@ class AdvertisementsController < ApplicationController
 
   def index
     @advertisements = Advertisement.all
-    if params[:search_name]
-      @advertisements = @advertisements.search_name(params[:search_name])
-    end
-    if params[:search_location]
-      @advertisements = @advertisements.search_location(params[:search_location])
-    end
-    if params[:category]
-      @advertisements = @advertisements.search_category(params[:category])
-    end
-    if params[:sub_category_id]
-      @advertisements = @advertisements.search_sub_category(params[:sub_category_id])
-    end
+
+    @advertisements = @advertisements.search_name(params[:search_name]) if params[:search_name]
+
+    @advertisements = @advertisements.search_location(params[:search_location]) if params[:search_name]
+
+    @advertisements = @advertisements.search_category(params[:category]) if params[:category]
+
+    @advertisements = @advertisements.search_sub_category(params[:sub_category_id]) if params[:sub_category_id]
   end
 
   def show
     @advertisement = Advertisement.find(params[:id])
-    @comments = @advertisement.comments.newest_first
+    @comments = @advertisement.comments.newest_first.approved
     @pictures = @advertisement.pictures
   end
 
   def new
      if user_signed_in?
-       @advertisement = Advertisement.new(:user_id => current_user.id)
+       @advertisement = Advertisement.new(user_id: current_user.id)
      else
        @advertisement = Advertisement.new
      end
@@ -43,7 +39,6 @@ class AdvertisementsController < ApplicationController
     end
     if @advertisement.save
       if params[:images]
-        #===== The magic is here ;)
         params[:images].each { |image|
           @advertisement.pictures.create(image: image)
         }
@@ -63,6 +58,11 @@ class AdvertisementsController < ApplicationController
   def update
     @advertisement = Advertisement.find(params[:id])
     if @advertisement.update_attributes(advertisement_params)
+      if params[:images]
+        params[:images].each { |image|
+          @advertisement.pictures.create(image: image)
+        }
+      end
       flash[:notice] = "Advertisement updated"
       redirect_to(advertisement_path(@advertisement))
     else

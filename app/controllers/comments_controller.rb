@@ -1,12 +1,12 @@
 class CommentsController < ApplicationController
   def index
     @advertisement = Advertisement.find(params[:advertisement_id])
-    @comments = @advertisement.comments.newest_first
+    @comments = @advertisement.comments.newest_first.approved
   end
 
   def new
     @advertisement = Advertisement.find(params[:advertisement_id])
-    @comment = Comment.new(params[:user_id => current_user.id])
+    @comment = Comment.new(params[user_id: current_user.id])
   end
 
   def create
@@ -26,8 +26,25 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to comments_path(:advertisement_id => @comment.advertisement_id)
+    if params[:admin_task] == "new_comments"
+      redirect_to unapproved_index_comments_path(admin_task: params[:admin_task])
+    else
+      redirect_to comments_path(advertisement_id: @comment.advertisement_id)
+    end
   end
+
+  def unapproved_index
+    @comments = Comment.unapproved
+  end
+
+  def approve
+    @comment = Comment.find(params[:id])
+    @comment.approved = true
+    @comment.approved_by_id = current_user.id
+    @comment.save
+    redirect_to unapproved_index_comments_path
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:text, :user_id, :advertisement_id)

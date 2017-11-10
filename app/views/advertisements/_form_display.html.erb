@@ -8,7 +8,7 @@
     <h3><%= advertisement.name.camelcase %></h3>
   <% end %>
   <p class="advert-category">
-    <%= advertisement.category.name.camelcase + " >> " + advertisement.sub_category.name.camelcase%>
+    <%= "#{advertisement.category.name.camelcase} >> #{advertisement.sub_category.name.camelcase}" %>
   </p>
   <p class="advert-location">
     <span class="glyphicon glyphicon-map-marker"></span>

@@ -1,7 +1,7 @@
 <div class="container form_box  ">
   <div class="row">
-    <%= link_to("Back to list", categories_path, :class => 'show-link') %>
-    <%= form_for(@sub_category, :url => sub_categories_path(:category_id => @category.id), :method => "post") do |f| %>
+    <%= link_to("Back to list", categories_path, class: 'show-link') %>
+    <%= form_for(@sub_category, url: category_sub_categories_path(category_id: @category.id), method: "post") do |f| %>
       <div class="form-group">
         <%= f.label :name, "Sub-Category", class: "col-md-4 control-label" %>
         <div class="col-md-4">

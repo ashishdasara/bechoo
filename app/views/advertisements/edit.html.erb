@@ -3,10 +3,17 @@
 <% if current_user.id == @advertisement.user_id %>
   <div class="container form_box">
     <div class="row">
-      <%= form_for @advertisement, html: {class: "form-horizontal center"} do |advertisement| %>
+      <%= form_for @advertisement, html: {class: "form-horizontal center", multipart: true} do |advertisement| %>
 
         <%= render 'form', advertisement: advertisement %>
-
+        <div class="form-group">
+          <% @advertisement.pictures.each do |picture| %>
+            <div class="col-xs-2">
+              <%= image_tag picture.image.url(:small_thumb) %>
+              <p><%= link_to "Delete" , picture_path(picture), class: "btn",  method: :delete%></p>
+            </div>
+          <% end %>
+        </div>
         <div class="form-group">
           <div class="col-md-offset-4">
             <%= advertisement.submit "Update", class: "btn" %>

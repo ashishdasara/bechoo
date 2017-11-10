@@ -1,2 +1,46 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <p><%= link_to "Back to Admin panel", admin_path %></p>
+    <% if @users.size != 0 %>
+      <table class="table_view">
+        <thead class="table_head">
+            <th>User Name</th>
+            <th>Location</th>
+            <th>Joined</th>
+            <th>Approval Status</th>
+            <% if params[:admin_task] == "all_users" || params[:admin_task] == "new_admins" %>
+              <th>Admin Status</th>
+            <% end %>
+            <th>Actions</th>
+        </thead>
+        <tbody class="table_body">
+          <% @users.each do |user|%>
+            <tr>
+              <td><%= user.name.camelcase %></td>
+              <td><%= user.location.camelcase %></td>
+              <td><%= user.created_at.to_date %></td>
+              <td><%= user.approved %></td>
+              <% if params[:admin_task] == "all_users" || params[:admin_task] == "new_admins" %>
+                <td><%= user.admin %></td>
+              <% end %>
+              <td>
+                <% if params[:admin_task] == "new_users" %>
+                  <%= link_to("Approve User", approve_user_path(user, admin_task: "new_users"), method: :patch, data: {confirm: "Are you sure?"}) %>
+                <% elsif params[:admin_task] == "new_admins" %>
+                  <%= link_to("Make Admin", approve_user_path(user, admin_task: params[:admin_task]), method: :patch, data: {confirm: "Are you sure?"})%>
+                <% end %>
+                <% if user.admin == false %>
+                  <%= link_to("Delete", user_path(user, admin_task: params[:admin_task]), method: :delete, data: {confirm: "Are you sure?"}) %>
+                <% else %>
+                  <%= "Not deletable" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <h3>No relevent users found</h3>
+    <% end %>
+  </div>
+</div>

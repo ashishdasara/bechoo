@@ -3,10 +3,6 @@ class CategoriesController < ApplicationController
     @categories = Category.sorted
   end
 
-  def show
-    @category = Category.find(params[:id])
-  end
-
   def new
     @category = Category.new
   end
@@ -20,17 +16,7 @@ class CategoriesController < ApplicationController
       render('new')
     end
   end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def delete
-    @category = Category.find(params[:id])
-  end
-
+  
   def destroy
     @category = Category.find(params[:id])
     @category.destroy

@@ -3,7 +3,7 @@
 
 <div class="container form_box  ">
   <div class="row">
-    <%= form_for :session, url: access_attempt_login_path, html: {class: "form-horizontal center"}, :method => :post do |f|%>
+    <%= form_for :session, url: access_attempt_login_path, html: {class: "form-horizontal center"}, method: :post do |f|%>
       <div class="form-group">
         <%= f.label :username, "Username", class: "col-md-4 control-label" %>
         <div class="col-md-4">
@@ -18,8 +18,10 @@
       </div>
       <div class="form-group">
         <div class="col-md-offset-5">
-          <%= f.submit "Submit", class: "btn" %>
+          <%= f.submit "Submit",data: { disable_with: false }, class: "btn" %>
           <%= link_to "Signup", new_user_path, class: "btn"%>
+          <a class="btn" href='/auth/google_oauth2'>Sign in with Google</a>
+
         </div>
       </div>
 
