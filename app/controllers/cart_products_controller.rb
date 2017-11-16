@@ -1,5 +1,5 @@
 class CartProductsController < ApplicationController
-  before_action :confirm_logged_in, only: [:create, :update, :destroy]
+  before_action :confirm_logged_in
   def index
   end
 

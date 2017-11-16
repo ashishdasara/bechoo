@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :carts, only: :index
-  resources :cart_products, only: [:index, :update, :destroy]
+  resources :cart_products, only: [:index, :update, :destroy, :create]
 
   resources :categories, only: [:index, :new, :create, :destroy] do
     resources :sub_categories, only: [:index, :new, :create, :destroy]
