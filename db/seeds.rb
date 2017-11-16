@@ -8,9 +8,9 @@
 
 admin = User.create!(first_name: 'admin', last_name: 'admin', email: 'admin@gmail.com', username: 'adminadmin', password: 'password', password_confirmation: 'password', approved: 'true', admin: 'true', contact_no: 4587632109, location: 'kolkata')
 
-u1 = User.create!(first_name: 'user', last_name: 'first', email: 'userfirst@gmail.com', username: 'userfirst', password: 'password', password_confirmation: 'password', approved: 'true', admin: 'false', contact_no: 4896541230, ;location: 'kolkata')
+u1 = User.create!(first_name: 'user', last_name: 'first', email: 'userfirst@gmail.com', username: 'userfirst', password: 'password', password_confirmation: 'password', approved: 'true', admin: 'false', contact_no: 4896541230, location: 'kolkata')
 
-u2 = User.create!(first_name: 'user', last_name: 'second', email: 'usersecond@gmail.com', username: 'usersecond', password: 'password', password_confirmation: 'password', approved: 'false', admin: 'false', contact_no: 4896541231, ;location: 'kolkata')
+u2 = User.create!(first_name: 'user', last_name: 'second', email: 'usersecond@gmail.com', username: 'usersecond', password: 'password', password_confirmation: 'password', approved: 'false', admin: 'false', contact_no: 4896541231, location: 'kolkata')
 
 cat1 = Category.create!(name: 'automobiles')
 cat2 = Category.create!(name: 'fashion')
