@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  before_action :require_proper_route_for_role, only: :index
 
 
   def create

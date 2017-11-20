@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-offset-3 col-md-6 display_box" >
-      <h2> <%= @user.first_name %> <%= @user.last_name %></h2>
+      <h2> <%= @user.name.camelcase %></h2>
       <h3><strong>email id: </strong> <%=@user.email %> </h3>
       <h3><strong>username: </strong> <%=@user.username %> </h3>
       <h3><strong>location: </strong> <%=@user.location %> </h3>
@@ -11,7 +11,7 @@
       <h3>
         <%= link_to("Show Posted Ads", view_advertisements_path, {class: "btn" }) %>
       <% end %>
-        <%= link_to("Your Orders", '#', {class: "btn" }) %>
+        <%= link_to("Your Cart", carts_path, {class: "btn" }) %>
         <%= link_to("Edit Profile", edit_user_path(@user.id), {class: "btn" }) %>
         <%= link_to("Change Password", edit_password_user_path, {class: "btn" }) %>
       </h3>

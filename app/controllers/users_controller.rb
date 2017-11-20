@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :is_admin, only: [:index]
+  before_action :is_admin, only: [:index, :destroy]
 
+  before_action :require_proper_route_for_role, only: [:index, :new, :edit, :show, :edit_password]
   def index
     @users = User.sorted
     if params[:admin_task] == "new_users"
@@ -80,8 +81,8 @@ class UsersController < ApplicationController
         flash[:notice]= "Changed Successfully!"
         redirect_to user_path(@user)
       else
-        flash[:notice] = "failed"
-        redirect_to admin_path
+        flash[:notice] = "Failed changing password! Retry again."
+        render 'edit_password'
       end
     end
   end

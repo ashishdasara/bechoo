@@ -2,7 +2,7 @@ class CartProduct < ApplicationRecord
 
   belongs_to :cart
 
-  has_many :advertisements
+  has_one :advertisement
 
   validates :quantity,  presence: true, numericality: { greater_than_or_equal_to: 1 }
 

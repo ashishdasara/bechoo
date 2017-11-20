@@ -14,8 +14,9 @@
       <% end %>
     </div>
   </div>
-  <% if user_signed_in? && current_user.admin == true %>
-    <p><%= link_to "Back to Admin panel", admin_path %></p>
+
+  <% if user_signed_in? && current_user.admin? %>
+    <p><%= link_to "Back to Admin panel", admin_index_path %></p>
   <% end %>
   <% if @advertisements.count != 0 %>
     <div class="row">
@@ -38,6 +39,9 @@
                 <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
               <% else %>
                 <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
+              <% end %>
+              <% if current_user.admin? %>
+              <%= link_to("Delete", advertisement_path(advertisement, admin_task: "index_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
               <% end %>
             <% end %>
           </div>

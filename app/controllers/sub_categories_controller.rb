@@ -1,5 +1,7 @@
 class SubCategoriesController < ApplicationController
 
+  before_action :require_proper_route_for_role, only: [:index, :new]
+  before_action :is_admin, only: [:index, :new, :create, :destroy]
   before_action :find_category
 
   def index

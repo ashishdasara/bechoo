@@ -7,13 +7,13 @@
       <%= f.text_field :text, placeholder: "leave a comment", class: "form-control" %>
     </div>
   </div>
-  
+
   <%= f.hidden_field :user_id,value: current_user.id, class: "form-control" %>
   <%= f.hidden_field :advertisement_id,value: @advertisement.id, class: "form-control" %>
 
   <div class="form-group">
     <div class="col-md-offset-4">
-      <%= f.submit "Submit", class: "btn" %>
+      <%= f.submit "Submit", class: "btn",data: { disable_with: false }%>
     </div>
   </div>
 

@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :require_proper_route_for_role, only: [:index, :new, :unapproved_index]
+  before_action :is_admin, only: [:approve, :unapproved_index]
+
   def index
     @advertisement = Advertisement.find(params[:advertisement_id])
     @comments = @advertisement.comments.newest_first.approved

@@ -10,14 +10,15 @@
   <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 image_display">
-      <div class="image_display_pane">
-        <%=image_tag(@pictures.first.image.url(:large)) %>
-      </div>
-      <% @pictures.each do |pic|%>
-        <div class="col-xs-4 image_thumb">
-          <%= image_tag(pic.image.url(:large)) %>
+      <% if @pictures.count!=0 %>
+        <div class="image_display_pane">
+          <%=image_tag(@pictures.first.image.url(:large)) %>
         </div>
-
+        <% @pictures.each do |pic|%>
+          <div class="col-xs-4 image_thumb">
+            <%= image_tag(pic.image.url(:large)) %>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 info_display">

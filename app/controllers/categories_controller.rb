@@ -1,4 +1,8 @@
 class CategoriesController < ApplicationController
+
+  before_action :require_proper_route_for_role, only: [:index, :new]
+  before_action :is_admin, only: [:index, :create, :new, :destroy]
+
   def index
     @categories = Category.sorted
   end
@@ -16,7 +20,7 @@ class CategoriesController < ApplicationController
       render('new')
     end
   end
-  
+
   def destroy
     @category = Category.find(params[:id])
     @category.destroy

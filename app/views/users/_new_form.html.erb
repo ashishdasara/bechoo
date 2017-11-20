@@ -40,21 +40,21 @@
     <%= user.text_field :username, placeholder: "min. 8 characters", class: "form-control" %>
   </div>
 </div>
-
-<div class="form-group">
-  <%= user.label :password, "Password", class: "col-md-4 control-label" %>
-  <div class="col-md-4">
-    <%= user.password_field :password, placeholder: "min. 8 characters", class: "form-control" %>
+<% if !user_signed_in? %>
+  <div class="form-group">
+    <%= user.label :password, "Password", class: "col-md-4 control-label" %>
+    <div class="col-md-4">
+      <%= user.password_field :password, placeholder: "min. 8 characters", class: "form-control" %>
+    </div>
   </div>
-</div>
 
-<div class="form-group">
-  <%= user.label :password_confirmation, "Password", class: "col-md-4 control-label" %>
-  <div class="col-md-4">
-    <%= user.password_field :password_confirmation, placeholder: "min. 8 characters", class: "form-control" %>
+  <div class="form-group">
+    <%= user.label :password_confirmation, "Re-enter Password", class: "col-md-4 control-label" %>
+    <div class="col-md-4">
+      <%= user.password_field :password_confirmation, placeholder: "min. 8 characters", class: "form-control" %>
+    </div>
   </div>
-</div>
-
+<% end %>
 <div class="form-group">
   <div class="col-md-offset-4">
     <%= user.submit "Submit", class: "btn btn-btn-success btn-lg" %>

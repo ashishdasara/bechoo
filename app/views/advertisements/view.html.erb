@@ -1,20 +1,29 @@
 <% @page_title = "Posted Advertisements" %>
 
 
-<% if @advertisements.count != 0 %>
-  <div class="container">
-    <div class="row">
+<div class="container">
+  <div class="row">
+    <% if @advertisements.count != 0 %>
 
       <% @advertisements.each do |advertisement| %>
       <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
         <div class="advert">
           <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
-          <%= link_to("Edit", edit_advertisement_path(advertisement), class: "btn btn-warning" ) %>
-          <%= link_to("Delete", advertisement_path(advertisement),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
+          <% if params[:admin_task] == "new_advertisements" %>
+            <%= link_to("Approve", approve_advertisement_path(advertisement), class: "btn btn-warning", method: :patch) %>
+          <% else %>
+            <%= link_to("Edit", edit_advertisement_path(advertisement), class: "btn btn-warning" ) %>
+          <% end %>
+          <%= link_to("Delete", advertisement_path(advertisement, admin_task: "approval_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
         </div>
       </div>
       <% end %>
-
-    </div>
+    <% else %>
+      <% if params[:admin_task] %>
+        <h3>No new postings!</h3>
+      <% else %>
+        <h3>No advertisements posted yet!</h3>
+      <% end %>
+    <% end %>
   </div>
-  <% end %>
+</div>

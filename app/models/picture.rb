@@ -8,8 +8,6 @@ class Picture < ActiveRecord::Base
     url: "/assets/images/:style/:basename.:extension",
     path: ":rails_root/public/assets/images/:style/:basename.:extension"
 
+  validates_attachment :image, content_type: { content_type: [ "image/jpg", "image/jpeg", "image/png" ] }
 
-validates_attachment :image, content_type: { content_type: [ "image/jpg", "image/jpeg", "image/png" ] }
-
-  # do_not_validate_attachment_file_type :image
 end

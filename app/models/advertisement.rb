@@ -20,6 +20,8 @@ class Advertisement < ApplicationRecord
   validates :sub_category_id, presence: true,
                               allow_nil: true
 
+  scope :approved,            lambda { where(approved: true)}
+  scope :unapproved,          lambda { where(approved: false)}
   scope :newest_first,        lambda { order("created_at DESC") }
   scope :search_name,         lambda {|search_name| where(["name LIKE ?", "%#{search_name}%"])}
   scope :search_location,     lambda {|search_location| where(["location LIKE ?", "%#{search_location}%"])}

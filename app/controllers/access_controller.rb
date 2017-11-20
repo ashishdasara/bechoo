@@ -2,10 +2,6 @@ class AccessController < ApplicationController
   before_action :confirm_logged_in, only: :admin
   before_action :is_admin, only: :admin
 
-
-  def admin
-  end
-
   def login
     if current_user
       flash[:notice] = "You are already logged in."
@@ -25,7 +21,7 @@ class AccessController < ApplicationController
       flash[:notice] = "You are now logged in."
       set_cart
       if authorized_user.admin == true
-        redirect_to(admin_path)
+        redirect_to(admin_index_path)
       else
         redirect_to(advertisements_path)
       end

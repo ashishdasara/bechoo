@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :require_proper_route_for_role, only: :index
+
   before_action :find_conversation , only: [:index, :new, :create]
 
   def index
@@ -29,8 +31,8 @@ class MessagesController < ApplicationController
     if @message.save
       if @conversation.messages.length == 1
         UserMailer.contact_message_email(@conversation.recipient_id, @conversation.sender_id).deliver_now
-      redirect_to conversation_messages_path(@conversation)
       end
+      redirect_to conversation_messages_path(@conversation)
     end
   end
 

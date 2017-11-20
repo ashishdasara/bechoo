@@ -6,7 +6,7 @@
       <h3>Users Menu</h3>
       <ul>
         <li><%= link_to "Show all users", users_path(admin_task: "all_users") %></li>
-        <li><%= link_to "Show new applications", users_path(admin_task: "new_users" ) %></li>
+        <li><%= link_to "Show new User Applications", users_path(admin_task: "new_users" ) %></li>
         <li><%= link_to "Add Admins", users_path( admin_task: "new_admins") %></li>
       </ul>
     </div>
@@ -16,8 +16,9 @@
       <ul>
         <li><%= link_to "Show Categories", categories_path %></li>
         <li><%= link_to "Post Advertisement", new_advertisement_path %></li>
-        <li><%= link_to "Show all Advertisements", advertisements_path(admin_task: "all_advertisements") %></li>
-        <li><%= link_to "Show new comments", unapproved_index_comments_path(admin_task: "new_comments") %></li>
+        <li><%= link_to "Show all Approved Advertisements", advertisements_path(admin_task: "all_advertisements") %></li>
+        <li><%= link_to "Show new Advertisements", view_advertisements_path(admin_task: "new_advertisements") %></li>
+        <li><%= link_to "Show new Comments", unapproved_index_comments_path(admin_task: "new_comments") %></li>
       </ul>
     </div>
 

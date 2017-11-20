@@ -26,7 +26,7 @@ module AccessHelper
   end
 
   def is_admin
-    unless current_user.admin
+    unless current_user.admin == true
       flash[:notice] = "You don't the required permissions."
       redirect_to advertisements_path
     end

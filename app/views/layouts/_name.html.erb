@@ -18,6 +18,9 @@
       </h3>
       <ul class="dropdown-menu">
         <li class="text-center"> <%= link_to "Home", advertisements_path %> </li>
+        <% if current_user.admin?%>
+          <li class="text-center"><%= link_to "Admin Panel", admin_index_path %></li>
+        <% end %>
         <li class="text-center"><%= link_to("My Conversations", conversations_path) %> </li>
         <% if current_user.advertisements.size != 0 %>
         <li class="text-center"> <%= link_to "Show your Ads", view_advertisements_path %> </li>

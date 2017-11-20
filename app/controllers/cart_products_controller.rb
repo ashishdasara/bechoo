@@ -1,4 +1,5 @@
 class CartProductsController < ApplicationController
+  before_action :require_proper_route_for_role, only: :index
   before_action :confirm_logged_in
   def index
   end

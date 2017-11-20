@@ -8,10 +8,11 @@ Users will be able to view ads, add comments to existing ads and post ads of pro
 
 The activities that can be performed are as follows:
 
-* User
+* User (Before logging in)
   * Check other ads
   * Post Ad
-  (After Login)
+* User (After Login)
+  * Post Ad
   * Edit and delete ad
   * Add products to cart
   * Add comments to other ads
@@ -19,6 +20,7 @@ The activities that can be performed are as follows:
 
 * Admin
   * Post ads
+  * Approve or delete advertisements
   * Create categories and sub-categories
   * Check ads
   * Approve new user applications
