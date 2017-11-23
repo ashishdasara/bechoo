@@ -29,20 +29,37 @@
         <span><%= @advertisement.location.camelcase %></span>
       </h3>
       <p><%= @advertisement.description.capitalize %></p>
-      <p>Add posted by: <%= @advertisement.user_username%></p>
+      <p>Ad posted by: <%= @advertisement.user_username%></p>
       <h3><strong> ₹ <%= @advertisement.price %></strong></h3>
 
-      <%= link_to("Add to Cart", cart_products_path(advertisement_id: @advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
       <% if user_signed_in? %>
-        <% if @advertisement.user_id.present? %>
-          <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: @advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+        <% if @advertisement.user_id.present?  %>
+          <% if @advertisement.user_id != current_user.id %>
+            <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: @advertisement.user.id, advertisement_id: @advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+          <% end %>
         <% else %>
           <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
         <% end %>
       <% end %>
+    <% if @advertisement.conversations.present? %>
+      <div class="conversations">
+        <h3>Active chats:</h3>
+          <% @advertisement.conversations.each do |conversation| %>
+            <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+              <% if conversation.sender_id == current_user.id %>
+                <% recipient = User.find(conversation.recipient_id) %>
+              <% else %>
+                <% recipient = User.find(conversation.sender_id) %>
+              <% end %>
 
+              <p>
+                <%= link_to "Chat with #{recipient.username.capitalize}", conversation_messages_path(conversation) %>
+              </p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-
   </div>
   <div class="row">
     <div class="comments-box">
@@ -65,8 +82,6 @@
             <p><%= comment.text %></p>
             <span><%= "- #{comment.user.name}"%></span>
             <span><%= "(approved_by #{User.find(comment.approved_by_id).name})" %></span>
-
-
           </div>
         <% end %>
       <% else %>

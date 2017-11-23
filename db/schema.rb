@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20171103102722) do
     t.string "location", null: false
     t.integer "user_id"
     t.string "user_username", null: false
-    t.string "user_contact_no"
     t.integer "category_id"
     t.integer "sub_category_id"
     t.boolean "approved", default: false
@@ -28,23 +27,6 @@ ActiveRecord::Schema.define(version: 20171103102722) do
     t.index ["category_id"], name: "index_advertisements_on_category_id"
     t.index ["sub_category_id"], name: "index_advertisements_on_sub_category_id"
     t.index ["user_id"], name: "index_advertisements_on_user_id"
-  end
-
-  create_table "cart_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "cart_id"
-    t.integer "advertisement_id"
-    t.integer "quantity", default: 1
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["advertisement_id"], name: "index_cart_products_on_advertisement_id"
-    t.index ["cart_id"], name: "index_cart_products_on_cart_id"
-  end
-
-  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -69,8 +51,10 @@ ActiveRecord::Schema.define(version: 20171103102722) do
   create_table "conversations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "sender_id"
     t.integer "recipient_id"
+    t.integer "advertisement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["advertisement_id"], name: "index_conversations_on_advertisement_id"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -112,7 +96,6 @@ ActiveRecord::Schema.define(version: 20171103102722) do
     t.string "contact_no"
     t.string "location", default: "India", null: false
     t.string "password_digest"
-    t.boolean "approved", default: false
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

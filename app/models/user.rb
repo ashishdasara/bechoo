@@ -4,10 +4,8 @@ class User < ApplicationRecord
 
   has_many :advertisements, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :conversations, foreign_key: :sender_id
-  has_one :cart, dependent: :destroy
+  has_many :conversations
 
-  scope :approved, lambda { where(approved: true)}
   scope :unapproved, lambda { where(approved: false)}
   scope :not_admin, lambda { where(admin: false)}
   scope :sorted, lambda { order("first_name ASC") }

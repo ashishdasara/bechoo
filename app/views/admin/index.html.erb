@@ -3,17 +3,9 @@
     <h2>Welcome Admin</h2>
 
     <div class="options">
-      <h3>Users Menu</h3>
+      <h3>Admin Menu</h3>
       <ul>
-        <li><%= link_to "Show all users", users_path(admin_task: "all_users") %></li>
-        <li><%= link_to "Show new User Applications", users_path(admin_task: "new_users" ) %></li>
         <li><%= link_to "Add Admins", users_path( admin_task: "new_admins") %></li>
-      </ul>
-    </div>
-
-    <div class="options">
-      <h3>Advertisements Menu</h3>
-      <ul>
         <li><%= link_to "Show Categories", categories_path %></li>
         <li><%= link_to "Post Advertisement", new_advertisement_path %></li>
         <li><%= link_to "Show all Approved Advertisements", advertisements_path(admin_task: "all_advertisements") %></li>

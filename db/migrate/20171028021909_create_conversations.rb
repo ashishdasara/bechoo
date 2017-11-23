@@ -3,8 +3,9 @@ class CreateConversations < ActiveRecord::Migration[5.1]
     create_table :conversations do |t|
       t.integer :sender_id
       t.integer :recipient_id
-      
+      t.integer :advertisement_id
       t.timestamps
     end
+    add_index("conversations", "advertisement_id")
   end
 end

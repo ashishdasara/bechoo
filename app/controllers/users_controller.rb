@@ -1,12 +1,8 @@
 class UsersController < ApplicationController
-  before_action :is_admin, only: [:index, :destroy]
+  before_action :is_admin, only: :index
 
   before_action :require_proper_route_for_role, only: [:index, :new, :edit, :show, :edit_password]
   def index
-    @users = User.sorted
-    if params[:admin_task] == "new_users"
-      @users = @users.unapproved
-    end
     if params[:admin_task] == "new_admins"
       @users = @users.not_admin
     end
@@ -24,7 +20,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UserMailer.welcome_email(@user).deliver_now
-      flash[:notice] = "Application submitted"
+      flash[:notice] = "Signup Successful!"
+      log_in(@user)
       redirect_to(advertisements_path)
     else
       render(new_user_path)
@@ -47,25 +44,13 @@ class UsersController < ApplicationController
 
   end
 
-  def approve
+  def admin
     @user= User.find(params[:id])
-    @user.approved = true
-    if params[:admin_task] == "new_users"
-      @user.save
-      UserMailer.account_confirmation(@user).deliver_now
-      redirect_to(users_path(approved_status: false, admin_task: "new_users"))
-
-    elsif params[:admin_task] == "new_admins"
+    if params[:admin_task] == "new_admins"
       @user.admin =true
       @user.save
-      redirect_to(users_path(approved_status: false, admin_task: "new_admins"))
+      redirect_to(users_path(admin_task: "new_admins"))
     end
-  end
-
-  def destroy
-    @user= User.find(params[:id])
-    @user.destroy
-    redirect_to(users_path(admin_task: params[:admin_task]))
   end
 
   def edit_password
@@ -89,7 +74,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :username, :email, :contact_no, :location, :password, :password_confirmation, :approved, :admin, :uid)
+    params.require(:user).permit(:first_name, :last_name, :username, :email, :contact_no, :location, :password, :password_confirmation, :admin, :uid)
   end
   def user_password_params
     params.require(:user).permit(:password, :password_confirmation)

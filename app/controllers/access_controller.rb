@@ -10,7 +10,7 @@ class AccessController < ApplicationController
   end
   def attempt_login
     if params[:session][:username].present? && params[:session][:password].present?
-      found_user = User.where(username: params[:session][:username].downcase).approved.first
+      found_user = User.where(username: params[:session][:username].downcase).first
       if found_user
         authorized_user = found_user.authenticate(params[:session][:password])
       end
@@ -19,7 +19,6 @@ class AccessController < ApplicationController
     if authorized_user
       log_in(authorized_user)
       flash[:notice] = "You are now logged in."
-      set_cart
       if authorized_user.admin == true
         redirect_to(admin_index_path)
       else
@@ -46,7 +45,6 @@ class AccessController < ApplicationController
       @user = User.find_or_create_from_auth_hash(hash)
       @user.save!
     	session[:user_id] = @user.id
-      set_cart
     	redirect_to root_url
     end
   end

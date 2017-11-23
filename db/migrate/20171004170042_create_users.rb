@@ -10,7 +10,6 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :contact_no
       t.string :location, null: false, default: "India"
       t.string :password_digest
-      t.boolean :approved, default: false
       t.boolean :admin, default: false
       t.timestamps
     end

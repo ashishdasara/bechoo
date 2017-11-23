@@ -17,7 +17,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def show
-    @advertisement = Advertisement.find(params[:id])
+    @advertisement = Advertisement.includes(:conversations).find(params[:id])
     @comments = @advertisement.comments.newest_first.approved
     @pictures = @advertisement.pictures
   end
@@ -77,12 +77,6 @@ class AdvertisementsController < ApplicationController
 
   def destroy
     @advertisement = Advertisement.find(params[:id])
-    if CartProduct.where(advertisement_id: @advertisement.id)
-      @cart_products = CartProduct.where(advertisement_id: @advertisement.id)
-      @cart_products.each do |cart_product|
-        cart_product.destroy
-      end
-    end
     @advertisement.destroy
     if params[:admin_task] == "approval_delete"
       redirect_to(view_advertisements_path(admin_task: params[:admin_task]))
@@ -112,7 +106,7 @@ class AdvertisementsController < ApplicationController
   private
 
   def advertisement_params
-    params.require(:advertisement).permit(:name, :description, :price, :location, :category_id, :sub_category_id, :user_id, :user_username, :user_contact_no)
+    params.require(:advertisement).permit(:name, :description, :price, :location, :category_id, :sub_category_id, :user_id, :user_username)
   end
 
 end

@@ -14,9 +14,6 @@ Rails.application.routes.draw do
     get 'view', on: :collection
   end
 
-  resources :carts, only: :index
-  resources :cart_products, only: [:index, :update, :destroy, :create]
-
   resources :categories, only: [:index, :new, :create, :destroy] do
     resources :sub_categories, only: [:index, :new, :create, :destroy]
   end
@@ -45,9 +42,6 @@ Rails.application.routes.draw do
       get 'view', on: :collection
     end
 
-    resources :carts, only: :index
-    resources :cart_products, only: [:index, :update, :destroy, :create]
-
     resources :categories, only: [:index, :new, :create, :destroy] do
       resources :sub_categories, only: [:index, :new, :create, :destroy]
     end
@@ -63,9 +57,9 @@ Rails.application.routes.draw do
       resources :messages, only: :index
     end
 
-    resources :users, except:[:delete] do
+    resources :users, except:[:destroy] do
       member do
-        patch 'approve'
+        patch 'admin'
         patch 'change_password'
         get 'edit_password'
       end

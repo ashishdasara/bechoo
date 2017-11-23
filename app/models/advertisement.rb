@@ -5,7 +5,7 @@ class Advertisement < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :pictures, dependent: :destroy
-
+  has_many :conversations, dependent: :destroy
 
   validates :name,            presence: true
   validates :description,     presence: true
@@ -13,8 +13,6 @@ class Advertisement < ApplicationRecord
   validates :location,        presence: true
   validates :user_username,   presence: true,
                               length: { within: 8..20}
-  validates :user_contact_no, presence: true,
-                              length: { is: 10 }
   validates :category_id,     presence: true,
                               allow_nil: true
   validates :sub_category_id, presence: true,

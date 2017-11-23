@@ -3,6 +3,9 @@
 
 <div class="container">
   <div class="row">
+    <% if user_signed_in? && current_user.admin? %>
+      <p><%= link_to "Back to Admin panel", admin_index_path %></p>
+    <% end %>
     <% if @advertisements.count != 0 %>
 
       <% @advertisements.each do |advertisement| %>

@@ -33,10 +33,9 @@
 
             <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
 
-            <%= link_to("Add to Cart", cart_products_path(advertisement_id: advertisement.id), class: "btn btn-success #{@class_disabled}", method: 'post' ) %>
             <% if user_signed_in? %>
               <% if advertisement.user_id.present? %>
-                <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+                <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
               <% else %>
                 <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
               <% end %>

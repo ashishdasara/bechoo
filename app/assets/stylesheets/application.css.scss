@@ -222,59 +222,12 @@ body
   margin: 15px;
 }
 
-.cart
+.conversations
 {
-  .head
+  border: 1px solid #f8f8f8;
+  margin-top: 30px;
+  h3
   {
-    margin-top: 15px;
-    padding:15px;
-    border: 1px solid #f8f8f8;
-    border-radius: 5px;
-    overflow: hidden;
-    h3 {
-      margin: 0px;
-    }
-  }
-  .cart-body
-  {
-    min-height: 250px;
-    padding: 0 15px;
-    border: 1px solid #f8f8f8;
-    overflow: hidden;
-    .cart-product
-    {
-      border: 1px solid black;
-      margin: 15px 0px;
-      padding: 15px 0px;
-      overflow: hidden;
-      .image-box
-      {
-        text-align: center;
-      }
-      .content-box
-      {
-        h3
-        {
-          margin: 0;
-          display: inline-block;
-        }
-        span
-        {
-          float: right;
-        }
-      }
-    }
-    .no-products {
-      text-align: center;
-      padding: 15px;
-    }
-    .price-label
-    {
-      float: left;
-    }
-    .price-value
-    {
-      float: right;
-    }
+    margin-top: 0px;
   }
 }

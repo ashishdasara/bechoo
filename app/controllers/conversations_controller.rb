@@ -3,19 +3,22 @@ class ConversationsController < ApplicationController
 
 
   def create
-    if Conversation.between(params[:sender_id],params[:recipient_id]).present?
-      @conversation = Conversation.between(params[:sender_id], params[:recipient_id]).first
+    if Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).present?
+      puts "conv exists"
+      @conversation = Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).first
     else
+      puts "new time"
       @conversation = Conversation.create!(conversation_params)
     end
     redirect_to conversation_messages_path(@conversation)
   end
 
   def index
+    @user_id = current_user.id
     @conversations = Conversation.all
   end
 private
   def conversation_params
-    params.permit(:sender_id, :recipient_id)
+    params.permit(:sender_id, :recipient_id, :advertisement_id)
   end
 end
