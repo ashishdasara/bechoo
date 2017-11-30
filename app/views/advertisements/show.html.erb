@@ -41,23 +41,25 @@
           <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
         <% end %>
       <% end %>
-    <% if @advertisement.conversations.present? %>
-      <div class="conversations">
-        <h3>Active chats:</h3>
-          <% @advertisement.conversations.each do |conversation| %>
-            <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-              <% if conversation.sender_id == current_user.id %>
-                <% recipient = User.find(conversation.recipient_id) %>
-              <% else %>
-                <% recipient = User.find(conversation.sender_id) %>
-              <% end %>
+      <% if user_signed_in? %>
+        <% if @advertisement.conversations.present? %>
+          <div class="conversations">
+            <h3>Active chats:</h3>
+            <% @advertisement.conversations.each do |conversation| %>
+              <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+                <% if conversation.sender_id == current_user.id %>
+                  <% recipient = User.find(conversation.recipient_id) %>
+                <% else %>
+                  <% recipient = User.find(conversation.sender_id) %>
+                <% end %>
 
-              <p>
-                <%= link_to "Chat with #{recipient.username.capitalize}", conversation_messages_path(conversation) %>
-              </p>
+                <p>
+                  <%= link_to "Chat with #{recipient.username.capitalize}", conversation_messages_path(conversation) %>
+                </p>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

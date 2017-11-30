@@ -12,7 +12,7 @@ class Advertisement < ApplicationRecord
   validates :price,           presence: true
   validates :location,        presence: true
   validates :user_username,   presence: true,
-                              length: { within: 8..20}
+                              length: {maximum: 20}
   validates :category_id,     presence: true,
                               allow_nil: true
   validates :sub_category_id, presence: true,

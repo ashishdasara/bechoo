@@ -39,13 +39,17 @@ jQuery(function() {
     return $('#category').change(function(){
       var category, options;
       category = $('#category :selected').text();
-      options = $(sub_categories).filter("optgroup[label=" + category + "]").html();
-
+      if(category != '') {
+        options = $(sub_categories).filter("optgroup[label=" + category + "]").html();
+      }
+      else {
+        options=null;
+      }
       if (options) {
         $('#sub_category_id').css("visibility", "visible");
         return $('#sub_category_id').html(options);
       } else {
-        $('#sub_category_id').hide();
+        $('#sub_category_id').css("visibility", "hidden");
       }
     });
   });

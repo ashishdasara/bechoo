@@ -2,7 +2,7 @@
   <div class="search_parameters">
     <div class="search_bar">
       <%= form_tag(advertisements_path, method: "get", id: "search-form") do %>
-        <%= text_field_tag :search_name, params[:search_name], placeholder: "Enter name", include_blank: true%>
+        <%= text_field_tag :search_name, params[:search_name], placeholder: "Product Name", include_blank: true%>
 
         <%= text_field_tag :search_location, params[:search_location], placeholder: "Location"%>
         <%= collection_select nil, :category, Category.sorted, :id, :name, include_blank: true, selected: nil, prompt: "Category", class: "form-control"%>
@@ -33,12 +33,17 @@
 
             <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
 
-            <% if user_signed_in? %>
               <% if advertisement.user_id.present? %>
-                <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+                <% if user_signed_in? %>
+                  <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+                <% else %>
+                  <%= link_to 'Chat with Seller', conversations_path(sender_id: "", recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+
+                <% end %>
               <% else %>
                 <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
               <% end %>
+              <% if user_signed_in? %>
               <% if current_user.admin? %>
               <%= link_to("Delete", advertisement_path(advertisement, admin_task: "index_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
               <% end %>

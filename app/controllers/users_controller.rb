@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :require_proper_route_for_role, only: [:index, :new, :edit, :show, :edit_password]
   def index
     if params[:admin_task] == "new_admins"
-      @users = @users.not_admin
+      @users = User.not_admin
     end
   end
 

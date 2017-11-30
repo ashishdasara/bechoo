@@ -3,14 +3,20 @@ class ConversationsController < ApplicationController
 
 
   def create
-    if Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).present?
-      puts "conv exists"
-      @conversation = Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).first
+
+    if user_signed_in?
+      if Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).present?
+        puts "conv exists"
+        @conversation = Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).first
+      else
+        puts "new time"
+        @conversation = Conversation.create!(conversation_params)
+      end
+      redirect_to conversation_messages_path(@conversation)
     else
-      puts "new time"
-      @conversation = Conversation.create!(conversation_params)
+      flash[:notice]="Please log in!"
+      redirect_to login_path
     end
-    redirect_to conversation_messages_path(@conversation)
   end
 
   def index
