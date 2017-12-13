@@ -43,6 +43,7 @@ class AccessController < ApplicationController
     else
       hash  = request.env["omniauth.auth"]
       @user = User.find_or_create_from_auth_hash(hash)
+      @user.set_defaults
       @user.save!
     	session[:user_id] = @user.id
     	redirect_to root_url

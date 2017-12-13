@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  before_save :set_defaults, unless: :persisted?
+
 
   has_many :advertisements, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -50,6 +50,6 @@ class User < ApplicationRecord
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
   def set_defaults
-    self.username  ||= "#{first_name}#{last_name}"
+    self.username = "#{self.first_name}#{self.last_name}"
   end
 end

@@ -22,6 +22,8 @@
     <div class="row">
       <% @advertisements.each do |advertisement| %>
         <% if user_signed_in? %>
+        <% @class_disabled = "" %>
+
           <% if advertisement.user_id == current_user.id %>
             <% @class_disabled = "disabled" %>
           <% else %>

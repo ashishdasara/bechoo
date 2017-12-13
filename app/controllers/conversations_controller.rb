@@ -5,9 +5,8 @@ class ConversationsController < ApplicationController
   def create
 
     if user_signed_in?
-      if Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).present?
-        puts "conv exists"
-        @conversation = Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id], params[:advertisement_id]).first
+      if Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id]).present?
+        @conversation = Conversation.where(advertisement_id: params[:advertisement_id]).between(params[:sender_id], params[:recipient_id]).first
       else
         puts "new time"
         @conversation = Conversation.create!(conversation_params)
