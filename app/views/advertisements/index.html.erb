@@ -1,13 +1,9 @@
 <div class="container">
   <div class="search_parameters">
     <div class="search_bar">
-      <%= form_tag(advertisements_path, method: "get", id: "search-form") do %>
+      <%= form_tag(advertisements_path, method: "get", class: "search-form") do %>
         <%= text_field_tag :search_name, params[:search_name], placeholder: "Product Name", include_blank: true%>
-
         <%= text_field_tag :search_location, params[:search_location], placeholder: "Location"%>
-        <%= collection_select nil, :category, Category.sorted, :id, :name, include_blank: true, selected: nil, prompt: "Category", class: "form-control"%>
-        <%= grouped_collection_select nil, :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, include_blank: true, prompt: "Sub-Category", class: "form-control" %>
-
         <%= button_tag(type: 'submit', class: "btn btn-md") do %>
           <span class="glyphicon glyphicon-search"></span>
         <% end %>
@@ -16,46 +12,67 @@
   </div>
 
   <% if user_signed_in? && current_user.admin? %>
-    <p><%= link_to "Back to Admin panel", admin_index_path %></p>
+    <p><%= link_to "<< Go to Admin panel", admin_index_path %></p>
   <% end %>
-  <% if @advertisements.count != 0 %>
-    <div class="row">
-      <% @advertisements.each do |advertisement| %>
-        <% if user_signed_in? %>
-        <% @class_disabled = "" %>
 
-          <% if advertisement.user_id == current_user.id %>
-            <% @class_disabled = "disabled" %>
-          <% else %>
-            <% @class = "" %>
+    <aside class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+      <div class="category_filters">
+        <%= form_tag(advertisements_path, method: "get", class: "search-form") do %>
+          <h4>Filters: </h4>
+          <%= hidden_field_tag :search_name, params[:search_name], placeholder: "Product Name", include_blank: true%>
+          <%= hidden_field_tag :search_location, params[:search_location], placeholder: "Location"%>
+          <%= collection_select nil, :category, Category.sorted, :id, :name,  selected: nil, prompt: "Category", class: "form-control"%>
+
+          <%= grouped_collection_select nil, :sub_category_id, Category.sorted, :sub_categories, :name, :id, :name, include_blank: true, prompt: "Sub-Category", class: "form-control" %>
+
+          <%= button_tag(type: 'submit', class: "btn btn-md") do %>
+            <span class="glyphicon glyphicon-search"></span>Search
           <% end %>
         <% end %>
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
-          <div class="advert">
+      </div>
+    </aside>
 
-            <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
+    <main class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+      <% if @advertisements.count != 0 %>
+      <div class="row">
+        <% @advertisements.each do |advertisement| %>
+          <% if user_signed_in? %>
+          <% @class_disabled = "" %>
 
-              <% if advertisement.user_id.present? %>
-                <% if user_signed_in? %>
-                  <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
-                <% else %>
-                  <%= link_to 'Chat with Seller', conversations_path(sender_id: "", recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
-
-                <% end %>
-              <% else %>
-                <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
-              <% end %>
-              <% if user_signed_in? %>
-              <% if current_user.admin? %>
-              <%= link_to("Delete", advertisement_path(advertisement, admin_task: "index_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
-              <% end %>
+            <% if advertisement.user_id == current_user.id %>
+              <% @class_disabled = "disabled" %>
+            <% else %>
+              <% @class = "" %>
             <% end %>
+          <% end %>
+          <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
+            <div class="advert">
+
+              <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
+
+                <% if advertisement.user_id.present? %>
+                  <% if user_signed_in? %>
+                    <%= link_to 'Chat with Seller', conversations_path(sender_id: current_user.id, recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+                  <% else %>
+                    <%= link_to 'Chat with Seller', conversations_path(sender_id: "", recipient_id: advertisement.user.id, advertisement_id: advertisement.id), class: "btn btn-warning #{@class_disabled}", method: 'post' %>
+
+                  <% end %>
+                <% else %>
+                  <%= link_to 'Chat not available', '#', class: "btn btn-warning disabled"%>
+                <% end %>
+                <% if user_signed_in? %>
+                <% if current_user.admin? %>
+                <%= link_to("Delete", advertisement_path(advertisement, admin_task: "index_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
+        <% end %>
+      </div>
+      <% else %>
       <h3>No Ads posted yet!</h3>
       <p><%= link_to "Post an ad", new_advertisement_path %></p>
+    </main>
   <% end %>
+
 </div>

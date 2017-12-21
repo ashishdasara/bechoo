@@ -2,6 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.category_filters
+{
+  text-align: center;
+  background-color: #f8f8f8;
+  margin: 30px 0px;
+  border: 1px solid black;
+  border-radius: 3px;
+  h4 {
+    text-align: left;
+    padding: 0px 15px;
+  }
+  select
+  {
+    background-color: #dcdcdc;
+    padding: 6px;
+    border-radius: 3px;
+    margin: 10px 0px;
+    width: 90%;
+  }
+  button
+  {
+    margin: 5px;
+    width: 90%;
+    border-radius: 0px;
+
+  }
+}
+
 .container
 {
   .search_bar
@@ -9,6 +37,7 @@
     text-align: center;
     background-color: #f8f8f8;
     padding: 15px 0px;
+    margin: auto 15px;
     border: 1px solid black;
 
     input
@@ -32,6 +61,9 @@
       // background-color: black;
     }
   }
+  p {
+    margin: 15px;
+  }
   .row
   {
     .advert-columns
@@ -48,6 +80,9 @@
           margin: 15px 15px 0px;
           border: 1px solid #dcdcdc;
           text-align: center;
+          img {
+            width: 100%;
+          }
         }
         .content-space
         {

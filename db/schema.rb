@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103102722) do
+ActiveRecord::Schema.define(version: 20171221063447) do
 
   create_table "advertisements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20171103102722) do
     t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "rejected", default: false
     t.index ["category_id"], name: "index_advertisements_on_category_id"
     t.index ["sub_category_id"], name: "index_advertisements_on_sub_category_id"
     t.index ["user_id"], name: "index_advertisements_on_user_id"

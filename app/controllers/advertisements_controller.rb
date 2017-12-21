@@ -89,7 +89,9 @@ class AdvertisementsController < ApplicationController
 
   def view
     if params[:admin_task] == "new_advertisements"
-      @advertisements = Advertisement.unapproved
+      @advertisements = Advertisement.unapproved.unrejected
+    elsif params[:admin_task] == "rejected_advertisements"
+      @advertisements = Advertisement.unapproved.rejected
     else
       @user = User.find(session[:user_id])
       @advertisements = @user.advertisements.newest_first
@@ -99,10 +101,16 @@ class AdvertisementsController < ApplicationController
   def approve
     @advertisement = Advertisement.find(params[:id])
     @advertisement.approved = true
+    @advertisement.rejected = false
     @advertisement.save
     redirect_to view_advertisements_path(admin_task: "new_advertisements")
   end
-
+  def reject
+    @advertisement = Advertisement.find(params[:id])
+    @advertisement.rejected = true
+    @advertisement.save
+    redirect_to view_advertisements_path(admin_task: "new_advertisements")
+  end
   private
 
   def advertisement_params

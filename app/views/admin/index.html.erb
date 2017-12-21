@@ -9,7 +9,8 @@
         <li><%= link_to "Show Categories", categories_path %></li>
         <li><%= link_to "Post Advertisement", new_advertisement_path %></li>
         <li><%= link_to "Show all Approved Advertisements", advertisements_path(admin_task: "all_advertisements") %></li>
-        <li><%= link_to "Show new Advertisements", view_advertisements_path(admin_task: "new_advertisements") %></li>
+        <li><%= link_to "Show unapproved Advertisements", view_advertisements_path(admin_task: "new_advertisements") %></li>
+        <li><%= link_to "Show rejected Advertisements", view_advertisements_path(admin_task: "rejected_advertisements") %></li>
         <li><%= link_to "Show new Comments", unapproved_index_comments_path(admin_task: "new_comments") %></li>
       </ul>
     </div>

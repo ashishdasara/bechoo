@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   scope :admin, path: 'admin' do
     resources :advertisements do
       patch 'approve', on: :member
+      patch 'reject', on: :member
       get 'view', on: :collection
+
     end
 
     resources :categories, only: [:index, :new, :create, :destroy] do

@@ -12,12 +12,35 @@
       <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 advert-columns">
         <div class="advert">
           <%= render(partial: 'form_display', locals: {advertisement: advertisement}) %>
-          <% if params[:admin_task] == "new_advertisements" %>
+          <div class="container">
+            <span>Status: </span>
+            <span>
+              <% if advertisement.approved == true%>
+                Approved
+              <% elsif advertisement.approved == false && advertisement.rejected == false %>
+                Not yet approved
+              <% elsif advertisement.approved == false && advertisement.rejected == true %>
+                Rejected
+              <% end %>
+            </span>
+          </div>
+          <% if params[:admin_task] == "rejected_advertisements" %>
+            <%= link_to("Approve", approve_advertisement_path(advertisement), class: "btn btn-warning", method: :patch) %>
+          <% elsif params[:admin_task] == "new_advertisements" %>
             <%= link_to("Approve", approve_advertisement_path(advertisement), class: "btn btn-warning", method: :patch) %>
           <% else %>
-            <%= link_to("Edit", edit_advertisement_path(advertisement), class: "btn btn-warning" ) %>
+            <% if advertisement.approved == false %>
+              <%= link_to("Edit", edit_advertisement_path(advertisement), class: "btn btn-warning" ) %>
+            <% else %>
+              <%= link_to("Can't Edit", '#', class: "btn btn-warning disabled" ) %>
+            <% end %>
           <% end %>
-          <%= link_to("Delete", advertisement_path(advertisement, admin_task: "approval_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
+          <!-- selecting reject button -->
+          <% if params[:admin_task]== "new_advertisements"%>
+            <%= link_to("Reject", reject_advertisement_path(advertisement), method: :patch, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
+          <% else %>
+            <%= link_to("Delete", advertisement_path(advertisement, admin_task: "approval_delete"),method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}) %>
+          <% end %>
         </div>
       </div>
       <% end %>
