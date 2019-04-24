@@ -29,10 +29,6 @@ The activities that can be performed are as follows:
 
 The user can create an account by signing up. The user cannot add his own product to his cart, and neither can he message himself. The user recieves a welcome email when he signs up for the website. He also recieves a mail when any user messages him for the first time with query related to the advertisement he posted.
 
-## ** Ruby and rails version **
-
-  Version 3.10.0 (ruby 2.4.0-p0), codename: Russell's Teapot
-
 ## ** How to run the test suite
 
   I have added some seeds to the project which might help in the evaluating process. I have added an admin account, one user account(unapproved), one user account(approved), two categories and teo sub-categories to the first category. Some parts of the project are visible only to the admins. Only admin can promote other users to admins, but the admin accounts cannot be deleted thereafter.
