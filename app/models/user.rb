@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
 
-
   has_many :advertisements, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :conversations
@@ -20,10 +19,11 @@ class User < ApplicationRecord
                           length: { maximum: 15 }
   validates :last_name,   presence: true,
                           length: { maximum: 15 }
-  validates :username,    uniqueness: true,
-                          length: { within: 6..20}
+  validates :username,    uniqueness: { case_sensitive: true },
+                          length: { within: 6..20 }
   validates :email,       presence: true,
                           length: { maximum: 100 },
+                          uniqueness: { case_sensitive: false },
                           format: EMAIL_REGEX
   validates :contact_no,  format: NUMBER_REGEX,
                           allow_nil: true

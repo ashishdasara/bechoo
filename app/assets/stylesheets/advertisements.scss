@@ -2,27 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.category_filters
-{
+.category_filters {
   text-align: center;
   background-color: #f8f8f8;
-  margin: 30px 0px;
+  margin: 15px 0;
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 5px;
+
   h4 {
     text-align: left;
     padding: 0px 15px;
   }
-  select
-  {
+
+  select {
     background-color: #dcdcdc;
     padding: 6px;
     border-radius: 3px;
     margin: 10px 0px;
     width: 90%;
   }
-  button
-  {
+
+  button {
     margin: 5px;
     width: 90%;
     border-radius: 0px;
@@ -30,84 +30,85 @@
   }
 }
 
-.container
-{
-  .search_bar
-  {
-    text-align: center;
-    background-color: #f8f8f8;
-    padding: 15px 0px;
-    margin: auto 15px;
-    border: 1px solid black;
+.container {
+  .search_bar {
+    text-align: right;
 
-    input
-    {
+    form {
+      background-color: #f8f8f8;
+      border-radius: 0 0 5px 5px;
+      display: inline-block;
+      padding: 15px;
+    }
+
+    input {
       border: 1px solid black;
       border-radius: 3px;
       margin: auto 10px;
       padding: 5px;
       background-color: #dcdcdc;
     }
-    select
-    {
+
+    select {
       background-color: #dcdcdc;
       padding: 6px;
       border-radius: 3px;
       margin: auto 10px;
       width: 100px;
     }
-    button
-    {
+
+    button {
       // background-color: black;
     }
   }
+
   p {
     margin: 15px;
   }
-  .row
-  {
-    .advert-columns
-    {
+
+  .row {
+    .advert-columns {
       margin: 15px 0px;
-      .advert
-      {
+
+      .advert {
         border: 1px solid black;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         background-color: #f0f0f0;
-        .image-space
-        {
+
+        .image-space {
           margin: 15px 15px 0px;
           border: 1px solid #dcdcdc;
           text-align: center;
+
           img {
             width: 100%;
           }
         }
-        .content-space
-        {
+
+        .content-space {
           margin: 15px;
-          h3
-          {
+
+          h3 {
             margin: 0px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
           }
-          p
-          {
-              margin: 0px;
+
+          p {
+            margin: 0px;
           }
         }
-        a
-        {
+
+        a {
           border-radius: 0px;
           border: 0px;
           display: inline-block;
           width: 100%;
         }
-        h4
-        {
+
+        h4 {
           margin: 0px;
         }
       }

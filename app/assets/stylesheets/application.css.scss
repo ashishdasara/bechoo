@@ -19,76 +19,78 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body
-{
+body {
+  box-sizing: border-box;
   min-height: 700px;
-  background-color: #dcdcdc;
+  background-color: #ccc;
 }
 
-.row
-{
+.row {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-.notice {
-  background-color: #000;
-  .notice-display
-  {
-    color: #f8f8f8;
-    margin-bottom: 0;
+
+.message-box {
+  background-color: #000000;
+  margin: 15px auto;
+  font-size: 14px;
+  color: #f8f8f8;
+  
+  .notice-display {
+    padding: 15px;
   }
 }
 
-.brand{
-  h1{
-    color: black;
-    text-align: center;
+.brand {
+  background-color: #000;
+
+  h1 {
+    color: #f8f8f8;
+    display: inline-block;
     font-family: 'Rancho';
     font-weight: bold;
   }
-  h1, a:hover{
+
+  h1, a:hover {
     text-decoration: none;
   }
 }
 
-.menu_box
-{
-  background-color: black;
+.menu_box {
+  color: #f8f8f8;
   font-family: 'Neucha';
-  div
-  {
-    float: right;
-    h3
-    {
-      color: #f8f8f8;
+  float: right;
+  
+
+  div {
+    h3 {
       font-size: 20px;
       display: inline-block;
     }
-    h3:hover
-    {
+
+    h3:hover {
       cursor: pointer;
     }
-    a
-    {
+    
+    a {
       color: #f8f8f8;
       margin: auto 15px;
     }
-    a:hover
-    {
+
+    a:hover {
       text-decoration: none;
     }
-    .dropdown-menu
-    {
+
+    .dropdown-menu {
       left: 120px;
-      li
-      {
-        a
-        {
+
+      li {
+        a {
           margin: 0px;
           color: black;
         }
-        a:hover
-        {
+
+        a:hover {
           background-color: black;
           color: white;
         }
@@ -96,23 +98,27 @@ body
     }
   }
 }
+
 .image_display {
   margin-top: 20px;
   text-align: center;
-  .image_display_pane
-  {
+
+  .image_display_pane {
     padding: 15px;
     border: 1px solid #f8f8f8;
+
     img {
       max-width: 100%;
       max-height: 100%;
       border-radius: 5px;
     }
   }
+
   .image_thumb {
     border: 1px solid #f8f8f8;
     position: relative;
     padding: 10px;
+
     img {
       text-align: center;
       border-radius: 5px;
@@ -121,51 +127,40 @@ body
     }
   }
 }
-.btn
-{
+
+.btn {
   border: 1px solid black;
   color: black;
 }
+
 .btn:hover {
   border: 1px solid #f8f8f8;
 }
-.display_box
-{
+
+.display_box {
   padding-bottom: 20px;
+
   a {
     border: 1px solid black;
     color: black;
   }
+
   a:hover {
     border: 1px solid #f8f8f8;
   }
 }
 
-.form_box
-{
-  form
-  {
-    div
-    {
-      div
-      {
-        // .btn
-        // {
-        //   background-color: #000;
-        //   color: #f8f8f8;
-        // }
-        input
-        {
-          // background-color: #f8f8f8;
-        }
-        select
-        {
+.form_box {
+  form {
+    div {
+      div {
+        select {
           height: 34px;
           background-color: #f8f8f8;
           height: 34px;
         }
-        #advertisement_image
-        {
+
+        #advertisement_image {
           margin-top: 9px;
           background-color: #f8f8f8;
         }
@@ -173,18 +168,18 @@ body
     }
   }
 }
-.chat
-{
+
+.chat {
   margin: 15px auto;
-  a
-  {
+
+  a {
     margin: 15px;
   }
-  .message-body
-  {
+
+  .message-body {
     margin: 15px;
-    .message-display
-    {
+
+    .message-display {
       margin: 10px 0px;
       display: block;
       width: 100%;
@@ -192,42 +187,41 @@ body
       border: 1px solid black;
       border-radius: 5px;
       background-color: #f8f8f8;
-      .message-item-right
-      {
+
+      .message-item-right {
         padding: 10px;
         float: right;
         clear: both;
         display: block;
-        .message-content
-        {
+
+        .message-content {
           float: right;
         }
       }
-      .message-item-left
-      {
+
+      .message-item-left {
         padding: 10px;
         clear: both;
         display: block;
         background-color: #cdcdcd;
       }
-      .message-header
-      {
+
+      .message-header {
         text-decoration: underline;
       }
     }
   }
 }
-.reply-form
-{
+
+.reply-form {
   margin: 15px;
 }
 
-.conversations
-{
+.conversations {
   border: 1px solid #f8f8f8;
   margin-top: 30px;
-  h3
-  {
+
+  h3 {
     margin-top: 0px;
   }
 }
